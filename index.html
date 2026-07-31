@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Soapz Laundry Co. | Self-Service and Wash &amp; Fold Laundry</title>
+<meta name="description" content="Soapz is a clean, bright laundromat with an attendant on site every day. Use our machines yourself, or drop your laundry off and we will wash and fold it for you.">
+<meta name="theme-color" content="#56bcef">
+<link rel="preload" href="assets/fonts/publicsans-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/outfit-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/styles.css">
+<script src="assets/js/scroll-reset.js"></script>
+<meta property="og:title" content="Soapz Laundry Co.">
+<meta property="og:description" content="A clean, bright laundromat with friendly help on site.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="assets/img/hero-laundromat.jpg">
+
+<!-- PLACEHOLDER DATA: replace name, phone, address and hours with the real
+     business details before going live. See README.md.
+     This block matters more than usual here, because this entry page carries
+     less text than a normal home page for search engines to read. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Laundry",
+  "name": "Soapz Laundry Co.",
+  "image": "assets/img/hero-laundromat.jpg",
+  "telephone": "+1-555-019-2847",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "100 Example Street",
+    "addressLocality": "Springfield",
+    "addressRegion": "MO",
+    "postalCode": "65804",
+    "addressCountry": "US"
+  },
+  "openingHoursSpecification": [{
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+    "opens": "06:00",
+    "closes": "22:00"
+  }]
+}
+</script>
+</head>
+<body>
+
+<a class="skip-link" href="#question">Skip to the question</a>
+
+<!-- Entry page. The question, two answers, the photo. Nothing else.
+     Yes goes to self-service, No goes to wash & fold. -->
+<main class="entry">
+
+  <img class="entry__photo" src="assets/img/hero-laundromat.jpg" width="2000" height="1125"
+       alt="A row of clean white front-loading washing machines along a bright, uncluttered wall inside Soapz."
+       fetchpriority="high" decoding="async">
+
+  <!-- The buttons read as bare Yes and No on purpose. aria-label carries the
+       meaning for screen readers without putting more words on the page. -->
+  <div class="entry__card">
+    <!-- Not aria-hidden like the one in the home hero: this page has no nav
+         bar, so this wordmark is the only place the business is named. -->
+    <span class="brand__badge entry__mark">
+      <span class="brand__name">SOAPZ</span>
+      <span class="brand__tag">Laundry Co.</span>
+    </span>
+
+    <h1 id="question">Do you like doing laundry?</h1>
+
+    <div class="answers">
+      <a class="btn btn--answer btn--yes" href="self-service.html"
+         aria-label="Yes, I will do my laundry myself">Yes</a>
+      <a class="btn btn--answer btn--no" href="wash-fold.html"
+         aria-label="No, please do my laundry for me">No</a>
+    </div>
+  </div>
+
+</main>
+
+</body>
+</html>

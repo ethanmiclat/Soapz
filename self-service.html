@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Self-Service Wash | Soapz Laundry Co.</title>
+<meta name="description" content="Use the machines at Soapz yourself. Large washers, fast dryers, pay by coin or card, and an attendant on site to help if you need it.">
+<meta name="theme-color" content="#56bcef">
+<link rel="preload" href="assets/fonts/publicsans-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/outfit-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/styles.css">
+<script src="assets/js/refresh-to-question.js"></script>
+<script src="assets/js/scroll-reset.js"></script>
+<script src="assets/js/chat.js" defer></script>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to the main content</a>
+
+<!-- Icon sprite: official Tabler Icons (MIT). -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"/><path d="M12 12l3 2"/><path d="M12 7v5"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5 -2.5l5 2v4a2 2 0 0 1 -2 2a16 16 0 0 1 -15 -15a2 2 0 0 1 2 -2"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5l10 -10"/></symbol>
+  <symbol id="i-washer" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3m0 2a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2z"/><path d="M12 14m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0"/><path d="M8 6h.01"/><path d="M11 6h.01"/><path d="M14 6h2"/><path d="M8 14c1.333 -.667 2.667 -.667 4 0c1.333 .667 2.667 .667 4 0"/></symbol>
+  <symbol id="i-basket" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"/><path d="M5.001 8h13.999a2 2 0 0 1 1.977 2.304l-1.255 7.152a3 3 0 0 1 -2.966 2.544h-9.512a3 3 0 0 1 -2.965 -2.544l-1.255 -7.152a2 2 0 0 1 1.977 -2.304z"/><path d="M17 10l-2 -6"/><path d="M7 10l2 -6"/></symbol>
+  <symbol id="i-shirt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M15 4l6 2v5h-3v8a1 1 0 0 1 -1 1h-10a1 1 0 0 1 -1 -1v-8h-3v-5l6 -2a3 3 0 0 0 6 0"/></symbol>
+  <symbol id="i-coin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"/><path d="M14.8 9a2 2 0 0 0 -1.8 -1h-2a2 2 0 1 0 0 4h2a2 2 0 1 1 0 4h-2a2 2 0 0 1 -1.8 -1"/><path d="M12 7v10"/></symbol>
+  <symbol id="i-card" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5m0 3a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v8a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3z"/><path d="M3 10l18 0"/><path d="M7 15l.01 0"/><path d="M11 15l2 0"/></symbol>
+</svg>
+
+<div class="utility">
+  <div class="wrap utility__inner">
+    <p><svg class="icon" aria-hidden="true"><use href="#i-clock"></use></svg> Open every day, 6:00am to 10:00pm</p>
+    <p><svg class="icon" aria-hidden="true"><use href="#i-phone"></use></svg> Questions? Call <a href="tel:+15550192847">(555) 019-2847</a></p>
+  </div>
+</div>
+
+<header class="masthead">
+  <nav class="wrap nav__inner" aria-label="Main">
+    <ul class="nav__list nav__list--left">
+      <li><a href="home.html">Home</a></li>
+      <li><a href="self-service.html" aria-current="page">Self-Service</a></li>
+    </ul>
+    <a class="brand" href="home.html" aria-label="Soapz Laundry Co., home page">
+      <span class="brand__badge">
+        <span class="brand__name">SOAPZ</span>
+        <span class="brand__tag">Laundry Co.</span>
+      </span>
+    </a>
+    <ul class="nav__list nav__list--right">
+      <li><a href="wash-fold.html">Wash &amp; Fold</a></li>
+      <li><a href="locations.html">Visit Us</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="main">
+
+  <section class="pagehead">
+    <div class="wrap">
+      <h1>Self-service wash</h1>
+      <p>Our machines, your schedule. Walk in any time we are open, and take as long as you need.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section__head">
+        <h2>How it works</h2>
+        <p>Three steps, and an attendant nearby the whole time in case you want a hand.</p>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <span class="step__dot"><svg class="icon" aria-hidden="true"><use href="#i-basket"></use></svg></span>
+          <h3>Load and pay</h3>
+          <p>Pick a washer that fits your load, add your soap, then pay at the machine with coins or a card.</p>
+        </div>
+        <div class="step">
+          <span class="step__dot"><svg class="icon" aria-hidden="true"><use href="#i-washer"></use></svg></span>
+          <h3>Wash and dry</h3>
+          <p>A wash takes about 30 minutes. Move your load to a dryer and it will be finished in about another 30.</p>
+        </div>
+        <div class="step">
+          <span class="step__dot"><svg class="icon" aria-hidden="true"><use href="#i-shirt"></use></svg></span>
+          <h3>Fold and go</h3>
+          <p>Use any of the folding tables, free of charge. Carts are by the door if you need help carrying out.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="wrap">
+      <div class="section__head">
+        <h2>Machines and prices</h2>
+        <p>Every price is also posted in large print on the machine itself, so you never have to guess.</p>
+      </div>
+      <!-- PLACEHOLDER PRICES: replace all four figures below with the real
+           Soapz pricing before this site goes live. See README.md. -->
+      <div class="tiles">
+        <div class="tile">
+          <p class="tile__label">Small washer</p>
+          <p class="tile__price">$3.25</p>
+          <p class="tile__note">About 2 loads from home. Good for a week of clothes.</p>
+        </div>
+        <div class="tile">
+          <p class="tile__label">Large washer</p>
+          <p class="tile__price">$5.50</p>
+          <p class="tile__note">Fits a full hamper, towels, or a set of bed sheets.</p>
+        </div>
+        <div class="tile">
+          <p class="tile__label">Extra-large washer</p>
+          <p class="tile__price">$8.00</p>
+          <p class="tile__note">Comforters, quilts, sleeping bags and heavy blankets.</p>
+        </div>
+        <div class="tile">
+          <p class="tile__label">Dryers</p>
+          <p class="tile__price">$0.25</p>
+          <p class="tile__note">Buys 6 minutes. Most loads dry in 25 to 35 minutes.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section__head">
+        <h2>Pay whichever way is easiest</h2>
+        <p>No app to download and no account to set up. Use what you already carry.</p>
+      </div>
+      <div class="payrow">
+        <div class="pay">
+          <svg class="icon" aria-hidden="true"><use href="#i-coin"></use></svg>
+          <div>
+            <h3>Coins</h3>
+            <p>A change machine sits by the front door and takes bills up to $20.</p>
+          </div>
+        </div>
+        <div class="pay">
+          <svg class="icon" aria-hidden="true"><use href="#i-card"></use></svg>
+          <div>
+            <h3>Credit or debit card</h3>
+            <p>Tap or insert your card at the machine. Nothing to sign up for.</p>
+          </div>
+        </div>
+        <div class="pay">
+          <svg class="icon" aria-hidden="true"><use href="#i-phone"></use></svg>
+          <div>
+            <h3>Not sure? Just ask</h3>
+            <p>Our attendant will show you how, as many times as you like.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="wrap split">
+      <div class="split__media">
+        <img src="assets/img/basket.jpg" width="1200" height="800" loading="lazy" decoding="async"
+             alt="A pale blue laundry basket filled with clean laundry.">
+      </div>
+      <div>
+        <h2>What you get at no extra cost</h2>
+        <p class="lead">Everything below is included with any wash. You only ever pay for the machines.</p>
+        <ul class="checklist">
+          <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg><span>Rolling carts to move your laundry around the store</span></li>
+          <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg><span>A folding table beside every bank of dryers</span></li>
+          <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg><span>Free Wi-Fi, seating, and a clean restroom</span></li>
+          <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg><span>Detergent and dryer sheets available from the vending wall</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="callout">
+        <div class="callout__text">
+          <h2>Want to know how busy we are?</h2>
+          <p>Give us a ring before you set out and we will tell you how many machines are free right now. Mornings before 10:00am and evenings after 8:00pm are usually the quietest.</p>
+        </div>
+        <a class="btn btn--primary" href="tel:+15550192847">
+          <svg class="icon" aria-hidden="true"><use href="#i-phone"></use></svg>
+          Call (555) 019-2847
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <span class="brand__badge">
+          <span class="brand__name">SOAPZ</span>
+          <span class="brand__tag">Laundry Co.</span>
+        </span>
+        <p style="margin-top:1.1rem">A clean, bright laundromat with friendly help on site, open every day.</p>
+      </div>
+      <div>
+        <h3>Pages</h3>
+        <ul>
+          <li><a href="home.html">Home</a></li>
+          <li><a href="self-service.html">Self-Service</a></li>
+          <li><a href="wash-fold.html">Wash &amp; Fold</a></li>
+          <li><a href="locations.html">Visit Us</a></li>
+          <li><a href="index.html">Not sure which you need?</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Get in touch</h3>
+        <ul>
+          <li><a href="tel:+15550192847">(555) 019-2847</a></li>
+          <li><a href="mailto:hello@soapzlaundry.com">hello@soapzlaundry.com</a></li>
+          <li>100 Example Street<br>Springfield, MO 65804</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>&copy; 2026 Soapz Laundry Co.</span>
+      <span>Open every day, 6:00am to 10:00pm</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
