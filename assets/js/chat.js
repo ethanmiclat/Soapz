@@ -27,7 +27,7 @@
     },
     {
       keys: ['cost', 'price', 'how much', 'expensive', 'cheap', 'rate', 'dollar'],
-      text: 'Prices depend on the size of machine you choose, and every price is posted clearly on the machines themselves. The full list is on our <a href="self-service.html">wash, dry and fold page</a>.'
+      text: 'Prices depend on the size of machine you choose, and every price is posted clearly on the machines themselves. The full list is on our <a href="self-service.html">self-service page</a>.'
     },
     {
       keys: ['long', 'take', 'ready', 'same day', 'turnaround', 'wait', 'when', 'pickup', 'pick up'],
