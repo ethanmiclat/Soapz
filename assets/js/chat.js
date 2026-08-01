@@ -203,15 +203,6 @@
     'I am not sure about that one. The attendant will know, so give us a call at ' +
     '<a href="tel:+15550192847">' + PHONE + '</a> and ask.';
 
-  var SUGGESTIONS = [
-    'What are your hours?',
-    'Do I need coins?',
-    'How much is a wash?',
-    'How long does wash, dry and fold take?',
-    'How do I get a stain out?',
-    'What is the minimum order?'
-  ];
-
   /* ---------- Matching ---------- */
 
   function bestAnswer(question) {
@@ -276,7 +267,6 @@
       /* role="log" + aria-live so a screen reader announces each new reply
          without the user having to go looking for it. */
       '<div class="chat-log" id="chat-log" role="log" aria-live="polite"></div>' +
-      '<div class="chat-suggestions"></div>' +
       '<form class="chat-form">' +
         '<label class="visually-hidden" for="chat-input">Type your question</label>' +
         '<input class="chat-input" id="chat-input" type="text" autocomplete="off"' +
@@ -294,14 +284,6 @@
     panel.querySelector('.chat-close').addEventListener('click', toggle);
     form.addEventListener('submit', onSubmit);
     makeDraggable(panel, panel.querySelector('.chat-head'));
-
-    var chips = panel.querySelector('.chat-suggestions');
-    SUGGESTIONS.forEach(function (text) {
-      var chip = el('button', 'chat-chip', text);
-      chip.type = 'button';
-      chip.addEventListener('click', function () { send(text); });
-      chips.appendChild(chip);
-    });
 
     say('bot', 'Hi, I am ' + NAME + '. Ask me anything about Soapz — hours, prices, parking, how wash, dry and fold works — or general laundry questions like stains, care labels and fabric care.');
 
