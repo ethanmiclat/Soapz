@@ -28,23 +28,23 @@
       text: 'Yes, an attendant is on site every hour we are open. If you are not sure which machine to use or how much soap to add, just ask. We are happy to walk you through it.'
     },
     {
-      keys: ['cost', 'price', 'pricing', 'how much', 'expensive', 'cheap', 'rate', 'dollar', 'charge'],
+      keys: ['cost', 'price', 'pricing', 'how much', 'expensive', 'cheap', 'cheapest', 'rate', 'dollar', 'charge'],
       text: 'Prices depend on the size of machine you choose, and every price is posted clearly on the machines themselves. The full list is on our <a href="self-service.html">self-service page</a>.'
     },
     {
-      keys: ['how long', 'same day', 'turnaround', 'ready', 'pick up', 'pickup', 'how soon', 'next day', 'clothes back', 'laundry back', 'when will it be done'],
+      keys: ['how long', 'same day', 'turnaround', 'ready', 'pick up', 'pick it up', 'pickup', 'how soon', 'next day', 'clothes back', 'laundry back', 'when will it be done'],
       text: 'For wash, dry and fold, most orders dropped off before noon are ready the same day by 6:00pm. Larger orders may take until the next morning, and we will give you a pickup time when you drop off. If you are washing yourself, the dryers finish in about 30 minutes.'
     },
     {
-      keys: ['park', 'parking', 'my car', 'accessible', 'wheelchair', 'walker', 'step free', 'handicap'],
+      keys: ['park', 'parking', 'my car', 'accessible', 'wheelchair', 'walker', 'step free', 'handicap', 'carry', 'carry my laundry', 'cart', 'far to walk'],
       text: 'There is free parking directly in front of the building, including two accessible spaces beside the entrance. The door is step-free and wide enough for a cart or walker.'
     },
     {
-      keys: ['hour', 'open', 'close', 'closing', 'what time', 'sunday', 'weekend', 'open late', 'how early', 'still open'],
+      keys: ['hour', 'open', 'close', 'closing', 'shut', 'what time', 'sunday', 'weekend', 'open late', 'how early', 'still open', 'when do you shut'],
       text: 'We are open every day from 6:00am to 10:00pm. The last wash goes in at 9:00pm.'
     },
     {
-      keys: ['where are you', 'address', 'location', 'located', 'direction', 'map', 'what street', 'how do i get there', 'how do i find', 'your shop', 'your store', 'nearby'],
+      keys: ['where are you', 'where is the laundromat', 'where is the store', 'where is your shop', 'address', 'location', 'located', 'direction', 'map', 'what street', 'how do i get there', 'how do i find', 'your shop', 'your store', 'nearby'],
       text: 'We are at 100 Example Street, Springfield, MO 65804. Our <a href="locations.html">Visit Us page</a> has directions and photos.'
     },
     {
@@ -55,7 +55,7 @@
       /* No 'wash and fold' phrase here on purpose: 'fold' already catches it,
          and the phrase used to outweigh "how long does wash and fold take",
          which is really a question about turnaround. */
-      keys: ['fold', 'drop off', 'dropoff', 'do it for me', 'full service', 'do my laundry for me'],
+      keys: ['fold', 'drop off', 'dropoff', 'do it for me', 'full service', 'do my laundry for me', 'do my washing', 'my washing', 'wash my stuff', 'washing for me', 'wash my clothes for me'],
       text: 'Wash, dry and fold means you leave your bag with us and collect it washed, dried and neatly folded. No sorting, no waiting around. There is more on the <a href="wash-fold.html">wash, dry and fold page</a>.'
     },
     {
@@ -63,15 +63,17 @@
       text: 'Our large washers handle bedding and bulky loads like comforters and blankets, so you do not need to split them across machines.'
     },
     {
-      keys: ['wifi', 'wi fi', 'internet', 'seating', 'somewhere to sit', 'restroom', 'bathroom', 'toilet', 'folding table', 'while i wait'],
+      /* 'charger' is listed here so it beats the fuzzy match against 'charge'
+         on the pricing entry, which used to answer charger questions. */
+      keys: ['wifi', 'wi fi', 'internet', 'seating', 'somewhere to sit', 'restroom', 'bathroom', 'toilet', 'folding table', 'while i wait', 'charger', 'outlet', 'plug'],
       text: 'We have free Wi-Fi, clean restrooms, comfortable seating, and a folding table at every station, so it is a comfortable place to wait out a cycle.'
     },
     {
-      keys: ['soap', 'detergent', 'bleach', 'softener', 'fabric softener', 'sensitive skin', 'scent', 'scented', 'unscented', 'allergy', 'allergic'],
+      keys: ['soap', 'detergent', 'how much detergent', 'bleach', 'softener', 'fabric softener', 'sensitive skin', 'scent', 'scented', 'unscented', 'allergy', 'allergic'],
       text: 'You are welcome to bring your own detergent, and we sell it on site if you forget. If you have a scent or skin sensitivity, tell the attendant and we will use what you prefer.'
     },
     {
-      keys: ['size', 'capacity', 'small washer', 'washer size', 'how big', 'top load', 'front load', 'which machine', 'what machines'],
+      keys: ['size', 'capacity', 'small washer', 'washer size', 'how big', 'big machine', 'biggest machine', 'large machine', 'top load', 'front load', 'which machine', 'what machines'],
       text: 'We have three washer sizes: small (about two loads from home), large (a full hamper or a set of bed sheets), and extra-large (comforters, quilts and heavy blankets). Prices for each are posted on the machine and on our <a href="self-service.html">self-service page</a>.'
     },
     {
@@ -79,7 +81,7 @@
       text: 'Dryers cost 25 cents for 6 minutes, and most loads finish drying in 25 to 35 minutes.'
     },
     {
-      keys: ['stain', 'red wine', 'grease', 'blood', 'ink', 'oil', 'spot', 'treat a stain', 'get out a stain'],
+      keys: ['stain', 'spill', 'spilled', 'red wine', 'grease', 'blood', 'ink', 'oil', 'spot', 'treat a stain', 'get out a stain'],
       text: 'Tell us about a stain or a delicate item when you drop off and we will treat it separately rather than run it through the standard wash. Washing yourself, cold water and treating a stain before it sets both help a lot.'
     },
     {
@@ -87,7 +89,7 @@
       text: 'Your wash, dry and fold order is washed on its own, never mixed with another customer’s laundry.'
     },
     {
-      keys: ['busy', 'crowded', 'quietest', 'wait time', 'rush hour', 'how long is the line', 'best time to come'],
+      keys: ['busy', 'busiest', 'least busy', 'crowded', 'quiet', 'quietest', 'wait time', 'rush hour', 'how long is the line', 'best time', 'best time to come'],
       text: 'Mornings before 10:00am and evenings after 8:00pm tend to be the quietest. Call ahead and we can tell you how many machines are free right now.'
     },
     {
@@ -103,7 +105,7 @@
       text: 'You are welcome to bring the kids along. There is seating and room to wait, just keep an eye on them around the machines.'
     },
     {
-      keys: ['pet', 'pet bed', 'dog bed', 'pet hair', 'dog blanket', 'cat blanket', 'dog', 'cat'],
+      keys: ['pet', 'pet bed', 'dog bed', 'pet hair', 'pet odor', 'pet smell', 'dog blanket', 'cat blanket', 'dog', 'cat'],
       text: 'Pet beds and blankets are fine in our machines. If there is a lot of pet hair, mention it when you drop off so we can give the machine an extra rinse afterward.'
     },
     {
@@ -115,11 +117,11 @@
       text: 'We do not offer dry cleaning on site, but call us and we are happy to point you to a dry cleaner nearby.'
     },
     {
-      keys: ['wool', 'hand wash', 'sweater', 'silk', 'lace', 'lingerie', 'cashmere', 'bra', 'delicate', 'gentle cycle'],
+      keys: ['wool', 'woolen', 'woollen', 'hand wash', 'sweater', 'silk', 'lace', 'lingerie', 'cashmere', 'bra', 'delicate', 'gentle cycle', 'wool in the dryer', 'sweater in the dryer'],
       text: 'For wool, silk or anything hand-wash-only, use the small washer on a cold, gentle cycle, or ask the attendant about hand-washing it in the sink at the back. Skip the dryer and lay it flat to air dry instead.'
     },
     {
-      keys: ['water temperature', 'hot water', 'cold water', 'warm water', 'warm wash', 'what temperature', 'hot or cold', 'which temperature'],
+      keys: ['water temperature', 'hot water', 'cold water', 'warm water', 'warm wash', 'what temperature', 'hot or cold', 'which temperature', 'dirty', 'really dirty', 'heavily soiled'],
       text: 'Cold water is safe for almost everything and keeps colors from fading. Use warm for towels and bedding, and hot only for whites or anything the care label marks for sanitizing.'
     },
     {
@@ -127,7 +129,7 @@
       text: 'Sort darks from lights, and wash brand-new dark items like new jeans on their own the first couple of times, since they can bleed dye onto lighter clothes.'
     },
     {
-      keys: ['static', 'cling', 'shrink', 'dryer sheet', 'dryer ball', 'wool ball'],
+      keys: ['static', 'cling', 'shrink', 'shrinking', 'shrunk', 'heat', 'low heat', 'high heat', 'heat setting', 'dryer sheet', 'dryer ball', 'wool ball'],
       text: 'A dryer sheet or wool dryer balls cut down on static cling. To avoid shrinking, pull out anything wool, elastic or marked "low heat" while the dryer is still warm rather than fully cycled, or air dry it instead.'
     },
     {
@@ -135,7 +137,7 @@
       text: 'The little tub icon on a care label is the wash guide: dots inside show temperature, and a hand in the tub means hand-wash only. A triangle means bleach is fine, and a crossed-out triangle means no bleach.'
     },
     {
-      keys: ['musty', 'mildew', 'sour smell', 'smells bad', 'smell bad', 'bad smell', 'odor', 'odour', 'stink'],
+      keys: ['musty', 'mildew', 'smells like', 'sour smell', 'smells bad', 'smell bad', 'bad smell', 'odor', 'odour', 'stink'],
       text: 'A musty smell usually means a load sat wet too long. Rewash it with an extra rinse, and leaving the washer door cracked between loads at home helps stop it happening again.'
     },
     {
@@ -143,7 +145,9 @@
       text: 'Sheets and towels are typically washed about once a week, and everyday clothes every wear or two. There is no need to overthink it.'
     },
     {
-      keys: ['lost', 'missing item', 'left something', 'left behind', 'forgot my', 'lost and found'],
+      /* Not 'forgot my': it swallowed things like "I forgot my detergent",
+         which is a question about soap, not about lost property. */
+      keys: ['lost', 'missing item', 'left something', 'left behind', 'forgot something', 'lost and found', 'did i leave'],
       text: 'If you think you left something behind, call us at <a href="tel:+15550192847">(555) 019-2847</a> with the day and roughly what time you were in, and the attendant will check the lost and found.'
     },
     {
@@ -159,7 +163,7 @@
       text: 'If your order is not ready at the time on your ticket, call the number on it and we will tell you exactly where it stands.'
     },
     {
-      keys: ['pay when', 'pay first', 'pay at pickup', 'pay before', 'pay up front', 'when do i pay'],
+      keys: ['pay when', 'pay first', 'pay at pickup', 'pay before', 'pay up front', 'when do i pay', 'how do i pay'],
       text: 'For wash, dry and fold you pay when you pick up, by cash or card. For self-service, you pay at the machine before it starts.'
     },
     {
@@ -187,13 +191,95 @@
       text: 'If a machine is not working or keeps your money, flag down the attendant right away. They will refund you or move your load to a working machine at no charge.'
     },
     {
-      keys: ['whiten', 'yellowing', 'grey whites', 'dingy', 'brighten', 'dull whites', 'white again'],
+      keys: ['whiten', 'my whites', 'grey', 'gray', 'yellowing', 'grey whites', 'dingy', 'brighten', 'dull whites'],
       text: 'To brighten dull whites, wash on the hottest setting the care label allows and add a scoop of oxygen-based bleach powder. Skip chlorine bleach on anything elastic, since it breaks the fibers down over time.'
     },
     {
       keys: ['down comforter', 'feather pillow', 'duvet insert', 'goose down', 'down jacket'],
       text: 'A down comforter or pillow does best in our extra-large washer on a gentle cycle, then a long, low-heat dry with a couple of clean tennis balls to keep the down from clumping.'
     },
+    {
+      keys: ['book ahead', 'book a machine', 'book a time', 'book me in', 'need to book', 'make a booking', 'reservation', 'reserve', 'appointment', 'time slot'],
+      text: 'There is nothing to book ahead and no form to fill in. Walk in any time we are open, and for wash, dry and fold just bring your bag to the counter.'
+    },
+    {
+      keys: ['vending', 'vending machine', 'buy detergent', 'sell detergent', 'buy soap'],
+      text: 'There is a vending wall in the store selling detergent, dryer sheets and other bits, so you can pick up anything you forgot without leaving.'
+    },
+    {
+      keys: ['uniform', 'work clothes', 'scrubs', 'coveralls', 'workwear'],
+      text: 'Uniforms, scrubs and work clothes are all fine here. If they are heavily soiled or greasy, say so when you drop off and we will wash them separately on a hotter cycle.'
+    },
+    {
+      keys: ['diaper', 'cloth diaper', 'nappy'],
+      text: 'Cloth diapers wash best on a hot cycle with an extra rinse and no fabric softener, since softener stops them absorbing. Give them a cold rinse at home first if you can.'
+    },
+    {
+      keys: ['iron', 'ironing', 'press', 'pressed', 'wrinkle', 'crease'],
+      text: 'Wash, dry and fold comes back folded rather than pressed, so we do not iron. Taking things out of the dryer while they are still warm and folding straight away keeps most creases out.'
+    },
+    {
+      keys: ['hard water', 'soft water', 'water hard', 'water quality'],
+      text: 'If your water at home is hard, clothes can come out stiff or dull. A little extra detergent, or a scoop of washing soda, sorts it out. Our machines are set up for the water here, so you do not need to think about it in store.'
+    },
+    {
+      keys: ['how many machines', 'how many washers', 'how many dryers', 'how many'],
+      text: 'We have banks of small, large and extra-large washers, with dryers along the back wall. Call us before you set out and we will tell you how many are free right now.'
+    },
+    {
+      keys: ['unattended', 'leave my laundry', 'watch my clothes', 'stolen', 'theft', 'security camera', 'safe', 'is it safe'],
+      text: 'An attendant is on site every hour we are open, so the store is never empty. Even so, it is best to stay with your laundry, or at least come back before the cycle ends.'
+    },
+    {
+      keys: ['smoking', 'can i smoke', 'no smoking', 'vape'],
+      text: 'There is no smoking or vaping inside the store. You are welcome to step outside, just keep an eye on your cycle.'
+    },
+    {
+      keys: ['is the place clean', 'is it clean', 'how clean', 'clean machines', 'sanitized', 'sanitary', 'hygiene'],
+      text: 'The store is cleaned through the day and the attendant keeps on top of the machines and folding tables. If you ever find a machine left in a mess, tell them and they will sort it straight away.'
+    },
+    {
+      keys: ['damage', 'damaged', 'ruined', 'ruin', 'liability', 'insurance', 'lost my clothes'],
+      text: 'Tell the attendant straight away if something comes back damaged or missing. They will look into it there and then, so please check your order before you leave.'
+    },
+
+    /* PLACEHOLDER POLICY: the answers below stand in for decisions only the
+       owner can make, so they point at the phone rather than commit to one.
+       Replace them with the real policy before this site goes live, the same
+       way the placeholder prices in the HTML need replacing. See README.md. */
+    {
+      keys: ['deliver', 'delivery', 'pickup and delivery', 'collect from me', 'come to my house'],
+      text: 'We are a walk-in laundromat, so laundry is dropped off and collected at the store. If you need another arrangement, call <a href="tel:+15550192847">' + PHONE + '</a> and ask what we can do.'
+    },
+    {
+      keys: ['gift card', 'gift certificate', 'receipt', 'invoice', 'ebt', 'snap', 'food stamps'],
+      text: 'The counter can sort out receipts and tell you which payment options we take beyond cash and card. Give us a call at <a href="tel:+15550192847">' + PHONE + '</a>.'
+    },
+    {
+      keys: ['discount', 'student discount', 'senior discount', 'coupon', 'deal', 'promotion', 'special offer'],
+      text: 'Ask at the counter about any current offers, or call <a href="tel:+15550192847">' + PHONE + '</a>. They will know what is running this week.'
+    },
+    {
+      keys: ['hiring', 'hire', 'job', 'apply', 'application', 'employment', 'work here'],
+      text: 'Ask the attendant at the counter, or call <a href="tel:+15550192847">' + PHONE + '</a>. If we are taking applications they will point you the right way.'
+    },
+    {
+      keys: ['atm', 'cash machine', 'cash point'],
+      text: 'We do not have a cash machine in the store. There is a change machine by the door for quarters, and the attendant can point you to the nearest ATM.'
+    },
+    {
+      keys: ['website', 'web site', 'online', 'instagram', 'facebook', 'social media'],
+      text: 'You are on it. This site covers our hours, prices, both services and how to find us. For anything it does not answer, call <a href="tel:+15550192847">' + PHONE + '</a>.'
+    },
+    {
+      keys: ['spanish', 'espanol', 'language', 'bilingual', 'speak spanish'],
+      text: 'Call <a href="tel:+15550192847">' + PHONE + '</a> and we will tell you who is on that day. The attendants are used to helping people through it whatever the language.'
+    },
+    {
+      keys: ['food', 'food and drink', 'bring a drink', 'eat', 'coffee', 'snack'],
+      text: 'A coffee or a snack while you wait is fine, we just ask you to clear up after yourself and keep drinks off the folding tables.'
+    },
+
     {
       keys: ['hello', 'hi', 'hey', 'howdy', 'good morning', 'good evening'],
       text: 'Hello. Ask me anything about the laundromat, or about laundry in general: hours, prices, parking, stain removal, care labels, or how wash, dry and fold works.'
@@ -218,7 +304,10 @@
      lone word. Anything that cannot clear MIN_SCORE gets the fallback, which
      is more use to a visitor than a confident wrong answer. */
 
-  var MIN_SCORE = 2;
+  /* An exact single word scores 4 and a fuzzy one 3, so a lone approximate
+     match is still enough to answer on, and an exact match always outranks
+     a fuzzy one. */
+  var MIN_SCORE = 3;
 
   /* Too common to say anything about the topic. These still sit in the token
      list so a phrase like "how much" can match; they just never score alone. */
@@ -246,26 +335,79 @@
     return word;
   }
 
+  /* Keep the original spelling alongside the stem: a misspelling often does
+     not stem the way the correct spelling does ("parking" stems to "park",
+     "parkign" does not), so the fuzzy check needs both to compare against. */
   function tokenize(text) {
     var raw = text.toLowerCase().replace(/[^a-z0-9]+/g, ' ').split(' ');
     var out = [];
     for (var i = 0; i < raw.length; i++) {
-      if (raw[i]) out.push(stem(raw[i]));
+      if (raw[i]) out.push({ raw: raw[i], stem: stem(raw[i]) });
     }
     return out;
   }
 
-  /* True when seq turns up in tokens as consecutive words. */
-  function hasSequence(tokens, seq) {
-    if (seq.length === 1) return tokens.indexOf(seq[0]) !== -1;
+  /* Only words this long are allowed to match approximately. Below it a
+     single edit turns too many real words into each other. */
+  var FUZZY_MIN = 5;
+
+  /* One edit apart, counting a swapped pair of neighbours as one edit, so
+     "detergant", "parkign" and "stian" still reach their keyword. */
+  function withinOneEdit(a, b) {
+    if (a === b) return true;
+    var la = a.length;
+    var lb = b.length;
+    if (Math.abs(la - lb) > 1) return false;
+
+    var i = 0;
+    var j = 0;
+    var edits = 0;
+
+    while (i < la && j < lb) {
+      if (a.charAt(i) === b.charAt(j)) { i++; j++; continue; }
+      if (++edits > 1) return false;
+
+      if (la === lb) {
+        if (a.charAt(i + 1) === b.charAt(j) && a.charAt(i) === b.charAt(j + 1)) {
+          i += 2; j += 2;          /* two letters swapped */
+        } else {
+          i++; j++;                /* one letter different */
+        }
+      } else if (la > lb) {
+        i++;                       /* a has an extra letter */
+      } else {
+        j++;                       /* a is missing a letter */
+      }
+    }
+    if (i < la || j < lb) edits++;
+    return edits <= 1;
+  }
+
+  function tokenMatches(qTok, kTok) {
+    if (qTok.stem === kTok.stem || qTok.raw === kTok.raw) return true;
+    if (kTok.raw.length < FUZZY_MIN && kTok.stem.length < FUZZY_MIN) return false;
+    return withinOneEdit(qTok.raw, kTok.raw) || withinOneEdit(qTok.stem, kTok.stem);
+  }
+
+  /* Looks for seq in tokens as consecutive words. Returns null when it is not
+     there, otherwise whether it only matched by way of the fuzzy comparison —
+     an exact match is worth slightly more. */
+  function findSequence(tokens, seq) {
     for (var i = 0; i + seq.length <= tokens.length; i++) {
       var hit = true;
+      var fuzzy = false;
+
       for (var j = 0; j < seq.length; j++) {
-        if (tokens[i + j] !== seq[j]) { hit = false; break; }
+        var q = tokens[i + j];
+        var k = seq[j];
+        if (q.stem === k.stem || q.raw === k.raw) continue;
+        if (tokenMatches(q, k)) { fuzzy = true; continue; }
+        hit = false;
+        break;
       }
-      if (hit) return true;
+      if (hit) return { fuzzy: fuzzy };
     }
-    return false;
+    return null;
   }
 
   /* Compile each keyword once into its stemmed words and what a match earns.
@@ -282,7 +424,7 @@
       }
       if (!seq.length || !content) continue;
 
-      compiled.push({ seq: seq, weight: seq.length === 1 ? 2 : 3 * seq.length });
+      compiled.push({ seq: seq, weight: seq.length === 1 ? 4 : 6 * seq.length });
     }
     ANSWERS[a].compiled = compiled;
   }
@@ -299,8 +441,9 @@
       var keys = ANSWERS[i].compiled;
 
       for (var k = 0; k < keys.length; k++) {
-        if (hasSequence(tokens, keys[k].seq)) {
-          score += keys[k].weight;
+        var found = findSequence(tokens, keys[k].seq);
+        if (found) {
+          score += keys[k].weight - (found.fuzzy ? 1 : 0);
           if (keys[k].seq.length > longest) longest = keys[k].seq.length;
         }
       }
