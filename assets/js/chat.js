@@ -31,7 +31,7 @@
     },
     {
       keys: ['long', 'take', 'ready', 'same day', 'turnaround', 'wait', 'when', 'pickup', 'pick up'],
-      text: 'For wash &amp; fold, most orders dropped off before noon are ready the same day by 6:00pm. Larger orders may take until the next morning, and we will give you a pickup time when you drop off. If you are washing yourself, the dryers finish in about 30 minutes.'
+      text: 'For wash, dry and fold, most orders dropped off before noon are ready the same day by 6:00pm. Larger orders may take until the next morning, and we will give you a pickup time when you drop off. If you are washing yourself, the dryers finish in about 30 minutes.'
     },
     {
       keys: ['park', 'parking', 'car', 'accessible', 'wheelchair', 'walker', 'step'],
@@ -47,7 +47,7 @@
     },
     {
       keys: ['fold', 'drop off', 'dropoff', 'do it for me', 'wash and fold', 'service'],
-      text: 'Wash &amp; fold means you leave your bag with us and collect it washed, dried and neatly folded. No sorting, no waiting around. There is more on the <a href="wash-fold.html">wash &amp; fold page</a>.'
+      text: 'Wash, dry and fold means you leave your bag with us and collect it washed, dried and neatly folded. No sorting, no waiting around. There is more on the <a href="wash-fold.html">wash, dry and fold page</a>.'
     },
     {
       keys: ['big', 'large', 'comforter', 'bedding', 'blanket', 'duvet', 'bulky', 'rug'],
@@ -63,7 +63,7 @@
     },
     {
       keys: ['hello', 'hi', 'hey', 'howdy', 'good morning', 'good evening'],
-      text: 'Hello. Ask me anything about the laundromat: hours, prices, parking, or how wash &amp; fold works.'
+      text: 'Hello. Ask me anything about the laundromat: hours, prices, parking, or how wash, dry and fold works.'
     },
     {
       keys: ['thank', 'thanks', 'cheers', 'appreciate'],
@@ -79,7 +79,7 @@
     'What are your hours?',
     'Do I need coins?',
     'How much is a wash?',
-    'How long does wash & fold take?'
+    'How long does wash, dry and fold take?'
   ];
 
   /* ---------- Matching ---------- */
@@ -173,7 +173,7 @@
       chips.appendChild(chip);
     });
 
-    say('bot', 'Hi, I am ' + NAME + '. Ask me anything about Soapz — hours, prices, parking, or how wash &amp; fold works.');
+    say('bot', 'Hi, I am ' + NAME + '. Ask me anything about Soapz — hours, prices, parking, or how wash, dry and fold works.');
 
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && open) toggle();
