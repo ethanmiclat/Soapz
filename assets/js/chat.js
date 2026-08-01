@@ -285,7 +285,7 @@
     form.addEventListener('submit', onSubmit);
     makeDraggable(panel, panel.querySelector('.chat-head'));
 
-    say('bot', 'Hi, I am ' + NAME + '. Ask me anything about Soapz — hours, prices, parking, how wash, dry and fold works — or general laundry questions like stains, care labels and fabric care.');
+    say('bot', 'Hi, I am ' + NAME + '. Ask me anything about Soapz: hours, prices, parking, how wash, dry and fold works, or general laundry questions like stains, care labels and fabric care.');
 
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && open) toggle();
