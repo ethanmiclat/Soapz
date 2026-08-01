@@ -34,7 +34,7 @@
       text: 'For wash, dry and fold, most orders dropped off before noon are ready the same day by 6:00pm. Larger orders may take until the next morning, and we will give you a pickup time when you drop off. If you are washing yourself, the dryers finish in about 30 minutes.'
     },
     {
-      keys: ['park', 'parking', 'car', 'accessible', 'wheelchair', 'walker', 'step'],
+      keys: ['park', 'parking', 'my car', 'accessible', 'wheelchair', 'walker', 'step'],
       text: 'There is free parking directly in front of the building, including two accessible spaces beside the entrance. The door is step-free and wide enough for a cart or walker.'
     },
     {
@@ -44,6 +44,10 @@
     {
       keys: ['where', 'address', 'location', 'find', 'direction', 'map'],
       text: 'We are at 100 Example Street, Springfield, MO 65804. Our <a href="locations.html">Visit Us page</a> has directions and photos.'
+    },
+    {
+      keys: ['minimum', 'minimum order', 'smallest order', 'per pound'],
+      text: 'There is a $17.50 minimum on wash, dry and fold orders, roughly one full kitchen bag of laundry. Above that it is priced at $1.75 a pound, and we weigh your bag in front of you at the counter.'
     },
     {
       keys: ['fold', 'drop off', 'dropoff', 'do it for me', 'wash and fold', 'service'],
@@ -62,8 +66,132 @@
       text: 'You are welcome to bring your own detergent, and we sell it on site if you forget. If you have a scent or skin sensitivity, tell the attendant and we will use what you prefer.'
     },
     {
+      keys: ['size', 'capacity', 'small washer', 'washer size', 'how big', 'top load', 'top-load', 'front load'],
+      text: 'We have three washer sizes: small (about two loads from home), large (a full hamper or a set of bed sheets), and extra-large (comforters, quilts and heavy blankets). Prices for each are posted on the machine and on our <a href="self-service.html">self-service page</a>.'
+    },
+    {
+      keys: ['dryer', 'dry time', 'how long to dry', 'minutes to dry', '6 minutes'],
+      text: 'Dryers cost 25 cents for 6 minutes, and most loads finish drying in 25 to 35 minutes.'
+    },
+    {
+      keys: ['stain', 'delicate item', 'red wine', 'grease', 'blood', 'ink', 'oil stain', 'treat a stain', 'get out a stain'],
+      text: 'Tell us about a stain or a delicate item when you drop off and we will treat it separately rather than run it through the standard wash. Washing yourself, cold water and treating a stain before it sets both help a lot.'
+    },
+    {
+      keys: ['mixed with', 'my own load', 'own order', 'combined with', 'together with someone'],
+      text: 'Your wash, dry and fold order is washed on its own, never mixed with another customer’s laundry.'
+    },
+    {
+      keys: ['busy', 'crowded', 'quietest', 'wait time', 'how long is the line', 'rush hour'],
+      text: 'Mornings before 10:00am and evenings after 8:00pm tend to be the quietest. Call ahead and we can tell you how many machines are free right now.'
+    },
+    {
+      keys: ['change machine', 'break a bill', 'breaks bills', 'twenty dollar'],
+      text: 'The change machine by the front door breaks bills up to $20.'
+    },
+    {
+      keys: ['membership', 'loyalty', 'account', 'sign up', 'rewards', 'download an app'],
+      text: 'There is no app to download and no account to set up. Just pay at the machine, or at the counter when you pick up a wash, dry and fold order.'
+    },
+    {
+      keys: ['kids', 'children', 'bring my kid', 'child friendly'],
+      text: 'You are welcome to bring the kids along. There is seating and room to wait, just keep an eye on them around the machines.'
+    },
+    {
+      keys: ['pet bed', 'dog bed', 'pet hair', 'dog blanket', 'cat blanket'],
+      text: 'Pet beds and blankets are fine in our machines. If there is a lot of pet hair, mention it when you drop off so we can give the machine an extra rinse afterward.'
+    },
+    {
+      keys: ['shoe', 'sneaker', 'rug', 'curtain', 'pillow'],
+      text: 'Rugs, curtains and pillows do fine in our large or extra-large washers. Sneakers and other shoes are best hand-washed, since the drum and hardware are not shoe-safe.'
+    },
+    {
+      keys: ['dry clean', 'dry-clean', 'dryclean', 'suit', 'silk tie'],
+      text: 'We do not offer dry cleaning on site, but call us and we are happy to point you to a dry cleaner nearby.'
+    },
+    {
+      keys: ['wool', 'hand wash', 'hand-wash', 'sweater', 'silk', 'lace', 'lingerie', 'cashmere'],
+      text: 'For wool, silk or anything hand-wash-only, use the small washer on a cold, gentle cycle, or ask the attendant about hand-washing it in the sink at the back. Skip the dryer and lay it flat to air dry instead.'
+    },
+    {
+      keys: ['water temperature', 'hot water', 'cold water', 'warm wash', 'what temperature'],
+      text: 'Cold water is safe for almost everything and keeps colors from fading. Use warm for towels and bedding, and hot only for whites or anything the care label marks for sanitizing.'
+    },
+    {
+      keys: ['sort', 'sorting', 'colors', 'colours', 'new jeans', 'bleed dye', 'darks and lights'],
+      text: 'Sort darks from lights, and wash brand-new dark items like new jeans on their own the first couple of times, since they can bleed dye onto lighter clothes.'
+    },
+    {
+      keys: ['static', 'cling', 'shrink', 'shrinking'],
+      text: 'A dryer sheet or wool dryer balls cut down on static cling. To avoid shrinking, pull out anything wool, elastic or marked "low heat" while the dryer is still warm rather than fully cycled, or air dry it instead.'
+    },
+    {
+      keys: ['care label', 'care symbol', 'what does the tag mean', 'laundry symbol'],
+      text: 'The little tub icon on a care label is the wash guide: dots inside show temperature, and a hand in the tub means hand-wash only. A triangle means bleach is fine, and a crossed-out triangle means no bleach.'
+    },
+    {
+      keys: ['musty', 'mildew', 'sour smell', 'smells bad', 'odor', 'odour'],
+      text: 'A musty smell usually means a load sat wet too long. Rewash it with an extra rinse, and leaving the washer door cracked between loads at home helps stop it happening again.'
+    },
+    {
+      keys: ['how often should i wash', 'wash sheets', 'wash towels', 'how often to wash'],
+      text: 'Sheets and towels are typically washed about once a week, and everyday clothes every wear or two. There is no need to overthink it.'
+    },
+    {
+      keys: ['lost', 'missing item', 'left something', 'forgot my', 'lost and found'],
+      text: 'If you think you left something behind, call us at <a href="tel:+15550192847">(555) 019-2847</a> with the day and roughly what time you were in, and the attendant will check the lost and found.'
+    },
+    {
+      keys: ['phone number', 'email address', 'contact you', 'get in touch'],
+      text: 'You can call us at <a href="tel:+15550192847">(555) 019-2847</a> or email <a href="mailto:hello@soapzlaundry.com">hello@soapzlaundry.com</a>.'
+    },
+    {
+      keys: ['holiday', 'christmas', 'thanksgiving', 'new year', 'closed today'],
+      text: 'We are open every day of the year, 6:00am to 10:00pm, including holidays.'
+    },
+    {
+      keys: ['not ready', 'order delay', 'still not done', 'running late'],
+      text: 'If your order is not ready at the time on your ticket, call the number on it and we will tell you exactly where it stands.'
+    },
+    {
+      keys: ['pay when', 'pay first', 'pay at pickup', 'pay before'],
+      text: 'For wash, dry and fold you pay when you pick up, by cash or card. For self-service, you pay at the machine before it starts.'
+    },
+    {
+      keys: ['tip', 'tipping', 'gratuity'],
+      text: 'Tipping is appreciated but never expected. There is a jar at the counter if you would like to leave one for the attendant.'
+    },
+    {
+      keys: ['eco', 'environment', 'sustainable', 'high efficiency', 'fragrance free', 'fragrance-free'],
+      text: 'Our machines are high-efficiency and use less water per load than most home washers. We are happy to use a fragrance-free or eco detergent if you ask.'
+    },
+    {
+      keys: ['what bag', 'hamper', 'basket', 'bring my own bag'],
+      text: 'Bring your laundry in whatever you have on hand, a hamper, a basket or a bag all work fine. We will hand it back clean, folded and bagged for the walk home.'
+    },
+    {
+      keys: ['business account', 'bulk laundry', 'airbnb', 'gym towels', 'salon', 'commercial account'],
+      text: 'We take on regular bulk accounts for things like Airbnb linens, gyms and salons. Call and ask for a standing rate.'
+    },
+    {
+      keys: ['claim ticket', 'lost my ticket', 'drop off ticket', 'need an id'],
+      text: 'You do not need an ID to drop off or pick up, just the ticket we hand you. If you lose it, tell the attendant your name and roughly when you dropped off and they can look it up.'
+    },
+    {
+      keys: ['machine is broken', 'machine broke', 'stuck', 'ate my money', 'machine not working', 'jammed'],
+      text: 'If a machine is not working or keeps your money, flag down the attendant right away. They will refund you or move your load to a working machine at no charge.'
+    },
+    {
+      keys: ['whiten', 'yellowing', 'grey whites', 'dingy', 'brighten'],
+      text: 'To brighten dull whites, wash on the hottest setting the care label allows and add a scoop of oxygen-based bleach powder. Skip chlorine bleach on anything elastic, since it breaks the fibers down over time.'
+    },
+    {
+      keys: ['down comforter', 'feather pillow', 'duvet insert', 'goose down'],
+      text: 'A down comforter or pillow does best in our extra-large washer on a gentle cycle, then a long, low-heat dry with a couple of clean tennis balls to keep the down from clumping.'
+    },
+    {
       keys: ['hello', 'hi', 'hey', 'howdy', 'good morning', 'good evening'],
-      text: 'Hello. Ask me anything about the laundromat: hours, prices, parking, or how wash, dry and fold works.'
+      text: 'Hello. Ask me anything about the laundromat, or about laundry in general: hours, prices, parking, stain removal, care labels, or how wash, dry and fold works.'
     },
     {
       keys: ['thank', 'thanks', 'cheers', 'appreciate'],
@@ -79,7 +207,9 @@
     'What are your hours?',
     'Do I need coins?',
     'How much is a wash?',
-    'How long does wash, dry and fold take?'
+    'How long does wash, dry and fold take?',
+    'How do I get a stain out?',
+    'What is the minimum order?'
   ];
 
   /* ---------- Matching ---------- */
@@ -173,7 +303,7 @@
       chips.appendChild(chip);
     });
 
-    say('bot', 'Hi, I am ' + NAME + '. Ask me anything about Soapz — hours, prices, parking, or how wash, dry and fold works.');
+    say('bot', 'Hi, I am ' + NAME + '. Ask me anything about Soapz — hours, prices, parking, how wash, dry and fold works — or general laundry questions like stains, care labels and fabric care.');
 
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && open) toggle();
