@@ -1574,36 +1574,47 @@
      keyboard, and the panel should sit still for it. */
   var KEYBOARD_MIN = 80;
   var PANEL_TOP_GAP = 16;      /* breathing room above the panel */
-  var PANEL_MIN_HEIGHT = 160;  /* never squash it past a usable size */
+
+  /* The shortest the panel can be and still show its header, a sliver of the
+     conversation and the input. Squashing it below this does not shrink it,
+     it just pushes the form out through the bottom, where the panel's
+     overflow:hidden cuts the input off. The caller measures the real figure
+     from the rendered panel; this is the fallback for when it cannot. */
+  var PANEL_MIN_HEIGHT = 210;
 
   /* layoutHeight   window.innerHeight, the viewport fixed elements sit in
      viewHeight     visualViewport.height, what the keyboard leaves showing
      offsetTop      visualViewport.offsetTop, how far iOS has pushed the page
      restingBottom  the panel's CSS bottom offset, in px
+     minHeight      shortest the panel renders without clipping its own input
      Returns null when no keyboard is up, otherwise the bottom and max-height
      to apply. */
   function keyboardFit(view) {
     var hidden = Math.round(view.layoutHeight - view.viewHeight - view.offsetTop);
     if (hidden < KEYBOARD_MIN) return null;
 
+    var floor = view.minHeight || PANEL_MIN_HEIGHT;
+
     /* What the visible strip has to offer, once the gap above is taken. */
     var available = view.viewHeight - PANEL_TOP_GAP;
 
     /* Normally the panel keeps its resting offset and simply rides up on top
-       of the keyboard. A landscape phone leaves a strip too short for that:
-       offset plus minimum height overflows the top, and the panel loses its
-       own header off the screen. There the offset gives way first, down to
-       nothing, so the panel sits directly on the keyboard rather than being
-       pushed out of sight. A panel dragged high up the page is pulled back
-       down by the same clamp. */
-    var lift = Math.min(view.restingBottom, Math.max(available - PANEL_MIN_HEIGHT, 0));
+       of the keyboard. A landscape phone leaves a strip too short for that,
+       so the offset gives way first, down to nothing, and the panel comes to
+       rest directly on the keyboard. A panel dragged high up the page is
+       pulled back down by the same clamp. */
+    var lift = Math.min(view.restingBottom, Math.max(available - floor, 0));
 
+    /* When even that is not enough the panel keeps its floor and overflows
+       the TOP of the screen rather than shrinking further. Shrinking looks
+       tidier in a diagram and is the wrong way round in the hand: the panel
+       clips from the bottom, so the casualty is the input the visitor is
+       typing into, while what runs off the top is the header they have
+       already read. Whatever else gives, the input stays above the keyboard. */
     return {
       hidden: hidden,
       bottom: Math.round(lift + hidden),
-      /* Whatever the strip has left. Only a viewport too short even for the
-         minimum takes this below it, and then there is nothing else to give. */
-      maxHeight: Math.max(Math.round(available - lift), 0)
+      maxHeight: Math.max(Math.round(available - lift), floor)
     };
   }
 
@@ -1746,11 +1757,23 @@
     panel.style.maxHeight = '';
   }
 
+  /* The shortest this panel actually renders at: its header, its form, and
+     enough of the log to see a line of the conversation. Measured rather
+     than assumed, so restyling the header or the input cannot quietly leave
+     a stale number behind that clips the input on a landscape phone. */
+  function panelFloor() {
+    var head = panel.querySelector('.chat-head');
+    var chrome = (head ? head.offsetHeight : 0) + (form ? form.offsetHeight : 0);
+    return chrome ? chrome + 48 : PANEL_MIN_HEIGHT;
+  }
+
   function liftOverKeyboard() {
     if (!window.visualViewport || panel.hidden || panel.style.left) return;
 
     /* Measure the resting position, not the lifted one left over from the
-       last call, or each keyboard opening would stack on the previous. */
+       last call, or each keyboard opening would stack on the previous. This
+       also puts the panel back to its natural size before panelFloor() reads
+       the header and form, so a squashed panel cannot under-report. */
     restingPanel();
     var resting = parseFloat(window.getComputedStyle(panel).bottom) || 0;
 
@@ -1758,7 +1781,8 @@
       layoutHeight: window.innerHeight,
       viewHeight: window.visualViewport.height,
       offsetTop: window.visualViewport.offsetTop,
-      restingBottom: resting
+      restingBottom: resting,
+      minHeight: panelFloor()
     });
     if (!fit) return;
 

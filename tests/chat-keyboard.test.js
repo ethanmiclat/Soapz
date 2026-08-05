@@ -40,27 +40,35 @@ function check(name, fn) {
   }
 }
 
-/* A panel of the height we would give it must sit inside the visible strip
-   and above the keyboard. This is the property that matters; the individual
-   numbers below are just the arithmetic that gets there. */
+/* The properties that matter, in priority order. The panel clips from the
+   bottom, so a panel shorter than its own minimum loses its input, which is
+   the one thing that must survive: the visitor is mid-sentence. Running off
+   the top only costs them the header they have already read. */
 function assertClears(view, got, label) {
+  var floor = view.minHeight || sudsy.PANEL_MIN_HEIGHT;
   var hidden = view.layoutHeight - view.viewHeight - view.offsetTop;
+  var keyboardTop = view.layoutHeight - hidden;
   var panelBottomEdge = view.layoutHeight - got.bottom;
   var panelTopEdge = panelBottomEdge - got.maxHeight;
 
   assert.ok(
-    got.bottom >= hidden,
-    label + ': panel bottom ' + got.bottom + ' does not clear the ' + hidden + 'px keyboard'
+    panelBottomEdge <= keyboardTop + 0.5,
+    label + ': panel overlaps the keyboard by ' + (panelBottomEdge - keyboardTop) + 'px'
   );
   assert.ok(
-    panelBottomEdge <= view.layoutHeight - hidden,
-    label + ': panel overlaps the keyboard by ' +
-      (panelBottomEdge - (view.layoutHeight - hidden)) + 'px'
+    got.maxHeight >= floor,
+    label + ': panel given ' + got.maxHeight + 'px, below the ' + floor +
+      'px it needs, so the input would be clipped'
   );
-  assert.ok(
-    panelTopEdge >= view.offsetTop,
-    label + ': panel top ' + panelTopEdge + ' is above the visible strip (' + view.offsetTop + ')'
-  );
+
+  /* Fitting inside the strip is required only when the strip can hold the
+     panel at all. Below that the overflow is deliberate and goes upward. */
+  if (view.viewHeight - sudsy.PANEL_TOP_GAP >= floor) {
+    assert.ok(
+      panelTopEdge >= view.offsetTop - 0.5,
+      label + ': panel top ' + panelTopEdge + ' is above the visible strip (' + view.offsetTop + ')'
+    );
+  }
 }
 
 /* ---------- No keyboard ---------- */
@@ -152,22 +160,39 @@ check('a short strip gives up the offset before the height', function () {
   assertClears(view, got, 'landscape');
 });
 
-check('a strip too short even for the minimum still fits on screen', function () {
+check('a strip too short for the panel overflows upward, not downward', function () {
+  /* The panel would rather hang off the top of the screen than be squashed,
+     because squashing pushes the input out through the bottom where
+     overflow:hidden cuts it off. Losing the header is the cheaper failure. */
   var view = { layoutHeight: 400, viewHeight: 120, offsetTop: 0, restingBottom: RESTING };
   var got = fit(view);
-  assert.ok(got.maxHeight < sudsy.PANEL_MIN_HEIGHT, 'nothing left to give');
-  assert.ok(got.maxHeight > 0, 'panel must still have a height');
-  assertClears(view, got, 'tiny strip');
+  assert.strictEqual(got.maxHeight, sudsy.PANEL_MIN_HEIGHT, 'should hold at the floor');
+
+  var panelBottomEdge = view.layoutHeight - got.bottom;
+  assert.ok(panelBottomEdge <= view.viewHeight + 0.5, 'input must stay above the keyboard');
+  assert.ok(panelBottomEdge - got.maxHeight < 0, 'this case is expected to overflow the top');
 });
 
 check('never squashed below a usable height', function () {
-  /* A landscape phone with a keyboard can leave less room than the panel's
-     minimum. Being a little taller than the strip beats being unusable, so
-     the floor wins here and the fit is deliberately not exact. */
   var got = fit({ layoutHeight: 400, viewHeight: 180, offsetTop: 0, restingBottom: RESTING });
   assert.ok(got, 'expected a fit');
   assert.strictEqual(got.maxHeight, sudsy.PANEL_MIN_HEIGHT);
   assert.ok(got.bottom >= got.hidden, 'must still clear the keyboard');
+});
+
+check('the caller can supply the panel height it actually measured', function () {
+  /* chat.js measures the rendered header and form rather than trusting the
+     constant, so restyling either cannot leave a stale floor behind. */
+  var view = {
+    layoutHeight: 844, viewHeight: 300, offsetTop: 0,
+    restingBottom: RESTING, minHeight: 260
+  };
+  var got = fit(view);
+  assert.ok(got.maxHeight >= 260, 'measured floor should be respected');
+  assertClears(view, got, 'measured floor');
+
+  /* A taller floor must not be allowed to sink the panel into the keyboard. */
+  assert.ok(view.layoutHeight - got.bottom <= view.viewHeight + 0.5, 'input above the keyboard');
 });
 
 check('the gap above the panel is respected when there is room', function () {
