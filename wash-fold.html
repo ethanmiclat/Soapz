@@ -25,6 +25,7 @@
   <symbol id="i-basket" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"/><path d="M5.001 8h13.999a2 2 0 0 1 1.977 2.304l-1.255 7.152a3 3 0 0 1 -2.966 2.544h-9.512a3 3 0 0 1 -2.965 -2.544l-1.255 -7.152a2 2 0 0 1 1.977 -2.304z"/><path d="M17 10l-2 -6"/><path d="M7 10l2 -6"/></symbol>
   <symbol id="i-washer" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3m0 2a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2z"/><path d="M12 14m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0"/><path d="M8 6h.01"/><path d="M11 6h.01"/><path d="M14 6h2"/><path d="M8 14c1.333 -.667 2.667 -.667 4 0c1.333 .667 2.667 .667 4 0"/></symbol>
   <symbol id="i-shirt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M15 4l6 2v5h-3v8a1 1 0 0 1 -1 1h-10a1 1 0 0 1 -1 -1v-8h-3v-5l6 -2a3 3 0 0 0 6 0"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z"/></symbol>
 </svg>
 
 <div class="utility">
@@ -47,7 +48,7 @@
       </span>
     </a>
     <ul class="nav__list nav__list--right">
-      <li><a href="wash-fold.html" aria-current="page">Wash, Dry and Fold</a></li>
+      <li><a href="wash-fold.html" aria-current="page">Drop Off</a></li>
       <li><a href="locations.html">Visit Us</a></li>
     </ul>
   </nav>
@@ -128,7 +129,10 @@
         <p>Wash and fold is priced by weight, so you only pay for what you bring. We weigh your bag in front of you at the counter.</p>
       </div>
       <!-- PLACEHOLDER PRICES: replace the three figures below with real Soapz
-           pricing before this site goes live. See README.md. -->
+           pricing before this site goes live. See README.md.
+           The Comfort Club member rate goes here too, as a fifth tile or a
+           second figure on the per-pound one, once it is decided. Ask Sudsy
+           already answers club questions from a placeholder. -->
       <div class="tiles">
         <div class="tile">
           <p class="tile__label">Per pound</p>
@@ -154,7 +158,57 @@
     </div>
   </section>
 
-  <section class="section section--tint">
+  <!-- PLACEHOLDER: THE COMFORT CLUB.
+       Every figure and every benefit below is invented, because none of it is
+       decided yet: the monthly price, the member rate per pound, and all three
+       perks. Replace them or delete the whole section before this site goes
+       live, since a membership nobody can actually buy is worse than no
+       section at all. Ask Sudsy answers club questions from a matching
+       placeholder in assets/js/chat.js, and those need to change at the same
+       time. See README.md. -->
+  <section class="section section--tint" id="comfort-club">
+    <div class="wrap">
+      <div class="section__head">
+        <h2>Comfort Club</h2>
+        <p>Our membership for anyone who drops off regularly. One monthly payment, and every bag after that costs less.</p>
+      </div>
+      <div class="tiles">
+        <div class="tile">
+          <p class="tile__label">Membership</p>
+          <p class="tile__price">$19.00</p>
+          <p class="tile__note">A month. Cancel any time, no notice period.</p>
+        </div>
+        <div class="tile">
+          <p class="tile__label">Member rate</p>
+          <p class="tile__price">$1.40</p>
+          <p class="tile__note">Per pound instead of $1.75, on every order.</p>
+        </div>
+        <div class="tile">
+          <p class="tile__label">Minimum order</p>
+          <p class="tile__price">None</p>
+          <p class="tile__note">Bring one shirt if you like. The $17.50 minimum does not apply.</p>
+        </div>
+        <div class="tile">
+          <p class="tile__label">Worth it from</p>
+          <p class="tile__price">55 lb</p>
+          <p class="tile__note">Roughly three full bags a month. Less than that and pay as you go.</p>
+        </div>
+      </div>
+      <ul class="checklist">
+        <li><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg><span>Comforters and other per-item pieces are charged at the member rate too</span></li>
+        <li><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg><span>Your order goes to the front of the queue when the store is busy</span></li>
+        <li><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg><span>Nothing to sign and no contract. Join at the counter, leave whenever you like</span></li>
+      </ul>
+      <div class="btn-row">
+        <a class="btn btn--primary" href="tel:+15550192847">
+          <svg class="icon" aria-hidden="true"><use href="#i-phone"></use></svg>
+          Call to join
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
     <div class="wrap">
       <div class="callout">
         <div class="callout__text">

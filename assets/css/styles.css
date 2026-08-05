@@ -577,6 +577,11 @@ a { color: var(--brand-dark); }
 .callout p { color: var(--ink-2); font-size: 1.1rem; }
 .callout__text { max-width: 40rem; }
 
+/* A callout with two buttons keeps them together as one flex child, otherwise
+   space-between strands the first one in the middle of the band. The row's
+   usual top margin is for stacked content and is wrong here. */
+.callout .btn-row { margin-top: 0; }
+
 /* ==========================================================================
    Ask Sudsy  (chat widget, built by assets/js/chat.js)
    Fixed to the bottom-right corner on every page except the entry question.

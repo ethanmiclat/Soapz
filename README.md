@@ -61,10 +61,56 @@ HTML files.
 | Map embed | `q=100%20Example%20Street...` | `locations.html` |
 | Directions link | `destination=100+Example+Street...` | `locations.html` |
 | Search/SEO data | JSON-LD block | top of `index.html` |
+| The app section | name, features, both download links | `self-service.html`, see below |
+| The Comfort Club section | `$19.00 / $1.40`, every perk | `wash-fold.html`, see below |
 
 Every placeholder price and address also has an uppercase `PLACEHOLDER`
 comment directly above it in the HTML, so you can find them by searching the
 files for `PLACEHOLDER`.
+
+Ask Sudsy has placeholders of its own. A handful of its answers stand in for
+decisions only you can make, so instead of inventing a policy they point at the
+phone number: delivery, gift cards and EBT, discounts, hiring, which languages
+the staff speak, and whether there is a notice board or a donation bin. The app
+and the Comfort Club answers are placeholders of a different kind, since those
+two features do not exist yet at all. Every one of them has a `PLACEHOLDER
+POLICY` comment above it in `assets/js/chat.js`, so searching that file for
+`PLACEHOLDER` finds the lot.
+
+## Ask Sudsy, the chat widget
+
+The mascot chat in the corner of every page is built by `assets/js/chat.js`.
+There is no model behind it and nothing is sent anywhere: it matches the
+question against a list of 146 topics, each with the keywords that lead to it.
+The file's own comments cover how a topic is scored. What matters if you are
+editing it:
+
+- **Answers live in `ANSWERS`,** one entry per topic. `keys` are the phrases
+  that trigger it, `context` are supporting words that only nudge a topic the
+  question already reached, and `avoid` are words that argue against it. The
+  last two are how questions that share a word get told apart: "how much to dry
+  a load" and "can I dry a wool jumper" both say *dry*, and the rest of the
+  sentence decides which answer comes back.
+- **Prefer a new topic to a new keyword.** Most wrong answers are not a
+  matching failure, they are a question the list had no answer for, so it
+  landed on the nearest thing. "Can I wash a car seat cover" reaching the
+  camping gear answer is fixed by writing a car seat answer, not by adding
+  keywords to camping gear.
+- **Run the tests after any edit:** `node tests/chat-matching.test.js`. It puts
+  about 1,950 real phrasings through the matcher, including a set that must
+  come back unanswered, and it will tell you exactly which questions moved. A
+  new keyword really can steal questions from a topic elsewhere in the list, so
+  this is not optional politeness. It also fails on the two mistakes that are
+  invisible by eye: the same keyword listed twice in one entry, and an entry
+  with two `keys`, `context` or `avoid` lines, where JavaScript silently keeps
+  the second and drops the first.
+- **Adding a topic** means adding an entry and adding its questions to the
+  test. The test fails if a topic has no cases of its own.
+
+When you are ready for a real model, `askSudsy()` at the bottom of the file is
+the only function to replace, and the comment above it has the code. Call your
+own server rather than Anthropic directly, or your API key ships to every
+visitor.
 
 ## Logo
 
@@ -145,11 +191,83 @@ The site is light mode only, on purpose, because the brand is white and light
 blue. If you ever want a dark mode it would need a second set of colour tokens
 in `styles.css`.
 
-## Things you may want to add later
+## The app and the Comfort Club
+
+Two things are planned, one for each service:
+
+- an **app for self-service**, the way the Speed Queen app works: check whether
+  the machines are in use before setting out, and start the one you have loaded
+  from your phone. It is convenience, not a discount. Nothing about it changes
+  what a wash costs, and every machine works exactly the same without it.
+- a **Comfort Club membership for wash, dry and fold**, which is the one that
+  makes anything cheaper.
+
+Keeping those two straight is the whole job here. They belong to different
+services and they do different things, and the fastest way to make the site
+wrong is to let a heading imply the app saves money.
+
+Both are on the site now, and **every word of both is a placeholder.** Nothing
+below is real: not the prices, not the benefits, not the download links.
+
+| Placeholder | Where | What is invented |
+|---|---|---|
+| App section | `self-service.html`, `#app` | the name, the three features, both download buttons (they go to `#`) |
+| Club section | `wash-fold.html`, `#comfort-club` | $19 a month, the $1.40 member rate, the dropped minimum, all three perks |
+| Home band | `home.html`, above "Why people keep coming back" | announces both, links to the two sections above |
+| Chat answers | `chat.js`: `app`, `app-trouble` | what the app covers, where to download it |
+| Chat answers | `chat.js`: `comfort-club`, `club-manage` | the price, what comes with it, how to cancel |
+
+Each carries an uppercase `PLACEHOLDER` comment directly above it, so
+searching the repo for `PLACEHOLDER` finds all of them alongside the fake
+prices and address.
+
+**Before the site goes live, each one has to be filled in or deleted.** A
+download button that leads nowhere and a membership nobody can buy are both
+worse than saying nothing, and the chat test suite will hold a wrong promise in
+place long after you have forgotten it is there.
+
+Filling in the chat side means editing the `text` and nothing else. The
+keywords are already right, including the crossover questions that are easy to
+get wrong ("do I need the app for drop-off", "does the club cover
+self-service"), and `tests/chat-matching.test.js` has 45 questions holding that
+behaviour in place. `membership` is the piece that tells the two apart when
+somebody asks about "signing up" without saying which service.
+
+### What still assumes neither exists
+
+These are correct today and go stale the day each feature is real. They are
+not wrong yet, which is why they have been left alone.
+
+**The app:** `chat.js` `how-many-machines` and `busy` both say to call ahead to
+find out what is free; `cycle-done` says the machine beeps and the attendant
+watches it for you; `booking` says there is nothing to book ahead, which stops
+being true if the app can reserve a machine. On the page,
+`self-service.html`'s "Want to know how busy we are?" band sends people to the
+phone.
+
+**The Comfort Club:** `chat.js` `per-pound` quotes $1.75 a pound and the $17.50
+minimum with no member rate; `discounts` says to ask at the counter rather than
+mentioning the club; `notifications`, `turnaround` and `rush` all assume every
+order is treated the same. On the page, `wash-fold.html`'s "What it costs"
+tiles are the non-member prices, which is correct, but they sit above a club
+section claiming a cheaper rate, so the two have to be decided together.
+
+One known overlap in the chat: "does the app tell me when my load is done"
+answers with `cycle-done` (the display counts down and it beeps) rather than
+the app topic. Fix that by editing `cycle-done` to mention the app once you
+know what it shows, rather than by moving keywords around. The app is not
+claimed to notify anybody: it shows time remaining, which is a different thing
+and deliberately worded that way on the page.
+
+## Other things you may want to add later
 
 - Real customer reviews. There is no testimonials section yet because inventing
   reviews for a new business would be dishonest. Once you have real ones, the
   `.panel` style is a good fit.
-- A machine-availability app. `self-service.html` currently tells customers to
-  phone ahead to check how busy it is. If you adopt an app later, that section
-  is the place to link it.
+- A real model behind Ask Sudsy. Matching on keywords covers the questions
+  people actually ask, but there are three things it will never do, and all
+  three need a server rather than more keywords: answer about *this* customer's
+  order, hold a conversation over more than the one previous message, and take
+  an action such as cancelling a pickup. Until then it is honest about that and
+  hands those to the phone, which is what the `memory`, `track-order` and
+  `change-order` answers are for.
