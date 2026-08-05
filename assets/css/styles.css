@@ -789,16 +789,20 @@ a { color: var(--brand-dark); }
   .nav__inner {
     display: flex; flex-wrap: wrap;
     align-items: center; justify-content: center;
-    gap: .1rem .15rem;
+    gap: .1rem .6rem;
     min-height: 0;
     padding-block: .3rem;
+    /* A narrower gutter than the rest of the page uses. The four links want
+       about 330px of the 345 a 390px phone offers, and the width bought back
+       here is what pays for the spacing between them. */
+    padding-inline: .5rem;
   }
   /* Full-basis brand forces the break, so all four links share the second row
      rather than one list riding up beside the wordmark. */
   .brand { order: 1; flex: 0 0 100%; display: flex; justify-content: center; }
   .nav__list--left  { order: 2; }
   .nav__list--right { order: 3; }
-  .nav__list { gap: .15rem; }
+  .nav__list { gap: .6rem; }   /* matches the row gap, so all four space evenly */
   .nav__list a {
     padding: .5rem .45rem;
     font-size: .84rem;
@@ -837,9 +841,14 @@ a { color: var(--brand-dark); }
 @media (max-width: 24rem) {
   /* Narrow Androids and the small iPhone. The four links need about 320px of
      their own, so below this width they either spill off the side or wrap to
-     a third row and give back the height just saved. Tighter text and a
-     narrower gutter keep them on one line down to 320px. */
-  .nav__inner { padding-inline: .6rem; }
+     a second row and give back the height just saved. Smaller text and a
+     narrower gutter keep them on one line down to 320px, and the width that
+     frees pays for a gap close to the one above.
+     The gap stops at .5rem rather than the .6rem that still fits at 320,
+     because that left 8px of clearance either side and a device whose font
+     renders a shade wider would wrap the row. */
+  .nav__inner { padding-inline: .35rem; gap: .1rem .5rem; }
+  .nav__list { gap: .5rem; }
   .nav__list a { font-size: .78rem; padding: .5rem .3rem; }
   .brand__name { font-size: .98rem; }
 }

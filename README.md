@@ -81,7 +81,7 @@ POLICY` comment above it in `assets/js/chat.js`, so searching that file for
 
 The mascot chat in the corner of every page is built by `assets/js/chat.js`.
 There is no model behind it and nothing is sent anywhere: it matches the
-question against a list of 146 topics, each with the keywords that lead to it.
+question against a list of 150 topics, each with the keywords that lead to it.
 The file's own comments cover how a topic is scored. What matters if you are
 editing it:
 
@@ -97,7 +97,7 @@ editing it:
   camping gear answer is fixed by writing a car seat answer, not by adding
   keywords to camping gear.
 - **Run the tests after any edit:** `node tests/chat-matching.test.js`. It puts
-  about 1,950 real phrasings through the matcher, including a set that must
+  2,016 real phrasings through the matcher, including a set that must
   come back unanswered, and it will tell you exactly which questions moved. A
   new keyword really can steal questions from a topic elsewhere in the list, so
   this is not optional politeness. It also fails on the two mistakes that are
@@ -229,7 +229,7 @@ place long after you have forgotten it is there.
 Filling in the chat side means editing the `text` and nothing else. The
 keywords are already right, including the crossover questions that are easy to
 get wrong ("do I need the app for drop-off", "does the club cover
-self-service"), and `tests/chat-matching.test.js` has 45 questions holding that
+self-service"), and `tests/chat-matching.test.js` has 46 questions holding that
 behaviour in place. `membership` is the piece that tells the two apart when
 somebody asks about "signing up" without saying which service.
 
