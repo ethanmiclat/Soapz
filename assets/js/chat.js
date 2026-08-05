@@ -1555,6 +1555,58 @@
     return parts.join('<br><br>');
   }
 
+  /* ---------- Lifting the panel over the on-screen keyboard ----------
+
+     Opening the chat focuses the input, which raises the keyboard. The panel
+     is position:fixed, and a fixed element is placed against the LAYOUT
+     viewport, which iOS does not shrink when the keyboard comes up. Left
+     alone the panel stays where it was and the keyboard covers the input the
+     visitor is being asked to type into. (100dvh does not help: it follows
+     browser chrome, not the keyboard.)
+
+     visualViewport reports the part of the screen still showing, so the strip
+     it no longer covers is the height of the keyboard, and that is how far
+     the panel has to lift. The sums are kept here, free of the DOM, so
+     tests/chat-keyboard.test.js can check them on every platform shape
+     rather than only the one a phone happens to be holding. */
+
+  /* Below this a shrinking viewport is a browser toolbar sliding away, not a
+     keyboard, and the panel should sit still for it. */
+  var KEYBOARD_MIN = 80;
+  var PANEL_TOP_GAP = 16;      /* breathing room above the panel */
+  var PANEL_MIN_HEIGHT = 160;  /* never squash it past a usable size */
+
+  /* layoutHeight   window.innerHeight, the viewport fixed elements sit in
+     viewHeight     visualViewport.height, what the keyboard leaves showing
+     offsetTop      visualViewport.offsetTop, how far iOS has pushed the page
+     restingBottom  the panel's CSS bottom offset, in px
+     Returns null when no keyboard is up, otherwise the bottom and max-height
+     to apply. */
+  function keyboardFit(view) {
+    var hidden = Math.round(view.layoutHeight - view.viewHeight - view.offsetTop);
+    if (hidden < KEYBOARD_MIN) return null;
+
+    /* What the visible strip has to offer, once the gap above is taken. */
+    var available = view.viewHeight - PANEL_TOP_GAP;
+
+    /* Normally the panel keeps its resting offset and simply rides up on top
+       of the keyboard. A landscape phone leaves a strip too short for that:
+       offset plus minimum height overflows the top, and the panel loses its
+       own header off the screen. There the offset gives way first, down to
+       nothing, so the panel sits directly on the keyboard rather than being
+       pushed out of sight. A panel dragged high up the page is pulled back
+       down by the same clamp. */
+    var lift = Math.min(view.restingBottom, Math.max(available - PANEL_MIN_HEIGHT, 0));
+
+    return {
+      hidden: hidden,
+      bottom: Math.round(lift + hidden),
+      /* Whatever the strip has left. Only a viewport too short even for the
+         minimum takes this below it, and then there is nothing else to give. */
+      maxHeight: Math.max(Math.round(available - lift), 0)
+    };
+  }
+
   /* Under Node there is no page to build, so the file hands out the matching
      internals and stops before anything touches window or document. That is
      what tests/chat-matching.test.js runs against, so the answers under test
@@ -1566,7 +1618,11 @@
       bestAnswer: bestAnswer,
       answerTopics: answerTopics,
       rank: rank,
-      stem: stem
+      stem: stem,
+      keyboardFit: keyboardFit,
+      KEYBOARD_MIN: KEYBOARD_MIN,
+      PANEL_MIN_HEIGHT: PANEL_MIN_HEIGHT,
+      PANEL_TOP_GAP: PANEL_TOP_GAP
     };
     return;
   }
@@ -1638,6 +1694,20 @@
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && open) toggle();
     });
+
+    /* The keyboard opening, closing or being swapped for an emoji panel all
+       arrive as a visualViewport resize. iOS also scrolls the visual viewport
+       out from under a focused field, which moves the panel without resizing
+       anything, so both events are worth listening to. */
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener('resize', liftOverKeyboard);
+      window.visualViewport.addEventListener('scroll', liftOverKeyboard);
+    }
+    input.addEventListener('focus', liftOverKeyboard);
+    input.addEventListener('blur', function () {
+      /* Let the keyboard start closing before measuring again. */
+      setTimeout(liftOverKeyboard, 100);
+    });
   }
 
   function toggle() {
@@ -1654,11 +1724,47 @@
       void panel.offsetWidth;
       panel.classList.add('is-visible');
       input.focus();
+      liftOverKeyboard();
+      /* iOS raises the keyboard over a couple of hundred milliseconds and
+         only reports the new viewport once it has settled, so the state right
+         after focus() is not the one to trust. */
+      setTimeout(liftOverKeyboard, 300);
     } else {
       panel.classList.remove('is-visible');
+      restingPanel();
       launcher.focus();
       closeTimer = setTimeout(function () { panel.hidden = true; }, CLOSE_DELAY);
     }
+  }
+
+  /* ---------- Keyboard ----------
+     keyboardFit above works out the geometry; this puts it on the panel.
+     A dragged panel is pinned to coordinates the visitor chose, so it is left
+     where they put it. */
+  function restingPanel() {
+    panel.style.bottom = '';
+    panel.style.maxHeight = '';
+  }
+
+  function liftOverKeyboard() {
+    if (!window.visualViewport || panel.hidden || panel.style.left) return;
+
+    /* Measure the resting position, not the lifted one left over from the
+       last call, or each keyboard opening would stack on the previous. */
+    restingPanel();
+    var resting = parseFloat(window.getComputedStyle(panel).bottom) || 0;
+
+    var fit = keyboardFit({
+      layoutHeight: window.innerHeight,
+      viewHeight: window.visualViewport.height,
+      offsetTop: window.visualViewport.offsetTop,
+      restingBottom: resting
+    });
+    if (!fit) return;
+
+    panel.style.bottom = fit.bottom + 'px';
+    panel.style.maxHeight = fit.maxHeight + 'px';
+    log.scrollTop = log.scrollHeight;   /* keep the newest answer in view */
   }
 
   /* ---------- Dragging ----------

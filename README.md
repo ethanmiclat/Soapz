@@ -106,6 +106,16 @@ editing it:
   the second and drops the first.
 - **Adding a topic** means adding an entry and adding its questions to the
   test. The test fails if a topic has no cases of its own.
+- **`node tests/chat-keyboard.test.js` is the other one to run,** and it covers
+  something quite different: where the panel sits when a phone's keyboard is
+  up. Opening the chat focuses the input, so the keyboard is up nearly every
+  time the panel is on a phone, and the panel is `position: fixed`, which iOS
+  places against a viewport it does not shrink for the keyboard. Left alone
+  the keyboard covers the field the visitor was just invited to type into.
+  `keyboardFit()` in `chat.js` does the sums and the test checks them against
+  the viewport shapes real phones report, portrait and landscape, since this
+  is the sort of thing that looks right on whichever handset you own and is
+  broken on the next one. Touch it and run the test.
 
 When you are ready for a real model, `askSudsy()` at the bottom of the file is
 the only function to replace, and the comment above it has the code. Call your
