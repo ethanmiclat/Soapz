@@ -22,8 +22,8 @@
    keyboard means bottom >= hidden. */
 
 var assert = require('assert');
-var sudsy = require('../assets/js/chat.js');
-var fit = sudsy.keyboardFit;
+var soapzy = require('../assets/js/chat.js');
+var fit = soapzy.keyboardFit;
 
 /* 18px root font, so the panel's 4.75rem resting offset on mobile is 85.5px. */
 var RESTING = 85.5;
@@ -45,7 +45,7 @@ function check(name, fn) {
    the one thing that must survive: the visitor is mid-sentence. Running off
    the top only costs them the header they have already read. */
 function assertClears(view, got, label) {
-  var floor = view.minHeight || sudsy.PANEL_MIN_HEIGHT;
+  var floor = view.minHeight || soapzy.PANEL_MIN_HEIGHT;
   var hidden = view.layoutHeight - view.viewHeight - view.offsetTop;
   var keyboardTop = view.layoutHeight - hidden;
   var panelBottomEdge = view.layoutHeight - got.bottom;
@@ -63,7 +63,7 @@ function assertClears(view, got, label) {
 
   /* Fitting inside the strip is required only when the strip can hold the
      panel at all. Below that the overflow is deliberate and goes upward. */
-  if (view.viewHeight - sudsy.PANEL_TOP_GAP >= floor) {
+  if (view.viewHeight - soapzy.PANEL_TOP_GAP >= floor) {
     assert.ok(
       panelTopEdge >= view.offsetTop - 0.5,
       label + ': panel top ' + panelTopEdge + ' is above the visible strip (' + view.offsetTop + ')'
@@ -88,18 +88,18 @@ check('a hiding browser toolbar is not a keyboard', function () {
     null
   );
   assert.strictEqual(
-    fit({ layoutHeight: 844, viewHeight: 844 - (sudsy.KEYBOARD_MIN - 1), offsetTop: 0, restingBottom: RESTING }),
+    fit({ layoutHeight: 844, viewHeight: 844 - (soapzy.KEYBOARD_MIN - 1), offsetTop: 0, restingBottom: RESTING }),
     null
   );
 });
 
 check('a shrink right on the threshold counts', function () {
   var got = fit({
-    layoutHeight: 844, viewHeight: 844 - sudsy.KEYBOARD_MIN,
+    layoutHeight: 844, viewHeight: 844 - soapzy.KEYBOARD_MIN,
     offsetTop: 0, restingBottom: RESTING
   });
   assert.ok(got, 'expected a fit at exactly KEYBOARD_MIN');
-  assert.strictEqual(got.hidden, sudsy.KEYBOARD_MIN);
+  assert.strictEqual(got.hidden, soapzy.KEYBOARD_MIN);
 });
 
 /* ---------- Real phones ---------- */
@@ -156,7 +156,7 @@ check('a short strip gives up the offset before the height', function () {
     got.bottom - got.hidden < RESTING,
     'offset should have been given up, got ' + (got.bottom - got.hidden)
   );
-  assert.strictEqual(got.maxHeight, sudsy.PANEL_MIN_HEIGHT, 'height should hold at the minimum');
+  assert.strictEqual(got.maxHeight, soapzy.PANEL_MIN_HEIGHT, 'height should hold at the minimum');
   assertClears(view, got, 'landscape');
 });
 
@@ -166,7 +166,7 @@ check('a strip too short for the panel overflows upward, not downward', function
      overflow:hidden cuts it off. Losing the header is the cheaper failure. */
   var view = { layoutHeight: 400, viewHeight: 120, offsetTop: 0, restingBottom: RESTING };
   var got = fit(view);
-  assert.strictEqual(got.maxHeight, sudsy.PANEL_MIN_HEIGHT, 'should hold at the floor');
+  assert.strictEqual(got.maxHeight, soapzy.PANEL_MIN_HEIGHT, 'should hold at the floor');
 
   var panelBottomEdge = view.layoutHeight - got.bottom;
   assert.ok(panelBottomEdge <= view.viewHeight + 0.5, 'input must stay above the keyboard');
@@ -176,7 +176,7 @@ check('a strip too short for the panel overflows upward, not downward', function
 check('never squashed below a usable height', function () {
   var got = fit({ layoutHeight: 400, viewHeight: 180, offsetTop: 0, restingBottom: RESTING });
   assert.ok(got, 'expected a fit');
-  assert.strictEqual(got.maxHeight, sudsy.PANEL_MIN_HEIGHT);
+  assert.strictEqual(got.maxHeight, soapzy.PANEL_MIN_HEIGHT);
   assert.ok(got.bottom >= got.hidden, 'must still clear the keyboard');
 });
 
@@ -198,7 +198,7 @@ check('the caller can supply the panel height it actually measured', function ()
 check('the gap above the panel is respected when there is room', function () {
   var view = { layoutHeight: 844, viewHeight: 508, offsetTop: 0, restingBottom: RESTING };
   var got = fit(view);
-  assert.strictEqual(got.maxHeight, Math.round(508 - RESTING - sudsy.PANEL_TOP_GAP));
+  assert.strictEqual(got.maxHeight, Math.round(508 - RESTING - soapzy.PANEL_TOP_GAP));
 });
 
 /* ---------- Repeat openings ---------- */
@@ -215,7 +215,7 @@ check('the same viewport always gives the same answer', function () {
 check('a panel dragged near the top still gets a valid fit', function () {
   var view = { layoutHeight: 844, viewHeight: 508, offsetTop: 0, restingBottom: 600 };
   var got = fit(view);
-  assert.ok(got.maxHeight >= sudsy.PANEL_MIN_HEIGHT, 'height floor must hold');
+  assert.ok(got.maxHeight >= soapzy.PANEL_MIN_HEIGHT, 'height floor must hold');
 });
 
 if (failures.length) {

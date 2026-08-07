@@ -1,4 +1,4 @@
-/* Stress test for Ask Sudsy's question matching.
+/* Stress test for Ask Soapzy's question matching.
 
    Run with: node tests/chat-matching.test.js
 
@@ -15,7 +15,7 @@
    group is part of the test rather than an afterthought. */
 
 var assert = require('assert');
-var sudsy = require('../assets/js/chat.js');
+var soapzy = require('../assets/js/chat.js');
 
 /* Question, then the topic id it has to reach. */
 var CASES = {
@@ -1013,7 +1013,7 @@ var CASES = {
     'hey there',
     'good morning',
     'howdy',
-    'hi sudsy'
+    'hi soapzy'
   ],
 
   thanks: [
@@ -1830,7 +1830,7 @@ var THIRD = {
     'are you an ai'
   ],
   greeting: [
-    'hi there sudsy',
+    'hi there soapzy',
     'good afternoon'
   ]
 };
@@ -3179,7 +3179,7 @@ var FALLBACK_CASES = [
 /* ---------- Runner ---------- */
 
 function topicFor(question) {
-  var topics = sudsy.answerTopics(question);
+  var topics = soapzy.answerTopics(question);
   return topics.length ? topics.join(' + ') : 'FALLBACK';
 }
 
@@ -3202,7 +3202,7 @@ BUNDLED.forEach(function (pair) {
 
 FOLLOW_UPS.forEach(function (turn) {
   total++;
-  var topics = sudsy.answerTopics(turn[1], turn[0]);
+  var topics = soapzy.answerTopics(turn[1], turn[0]);
   var got = topics.length ? topics.join(' + ') : 'FALLBACK';
   if (got !== turn[2]) {
     failures.push({ question: turn[0] + '" then "' + turn[1], want: turn[2], got: got });
@@ -3218,15 +3218,15 @@ FALLBACK_CASES.forEach(function (question) {
 /* Every topic in the answer list needs cases of its own, so a topic added
    later cannot quietly go untested. */
 var untested = [];
-for (i = 0; i < sudsy.ANSWERS.length; i++) {
-  if (!CASES[sudsy.ANSWERS[i].id]) untested.push(sudsy.ANSWERS[i].id);
+for (i = 0; i < soapzy.ANSWERS.length; i++) {
+  if (!CASES[soapzy.ANSWERS[i].id]) untested.push(soapzy.ANSWERS[i].id);
 }
 
 /* Two entries sharing an id would make the topic reported here ambiguous. */
 var duplicates = [];
 var seen = {};
-for (i = 0; i < sudsy.ANSWERS.length; i++) {
-  var id = sudsy.ANSWERS[i].id;
+for (i = 0; i < soapzy.ANSWERS.length; i++) {
+  var id = soapzy.ANSWERS[i].id;
   if (seen[id]) duplicates.push(id);
   seen[id] = true;
 }
@@ -3235,11 +3235,11 @@ for (i = 0; i < sudsy.ANSWERS.length; i++) {
    twice. The matcher scores such a group once on purpose, so this is only a
    tidiness check on the lists, reported but not fatal. */
 var doubleCounted = [];
-for (i = 0; i < sudsy.ANSWERS.length; i++) {
-  var entry = sudsy.ANSWERS[i];
+for (i = 0; i < soapzy.ANSWERS.length; i++) {
+  var entry = soapzy.ANSWERS[i];
   var stems = {};
   for (var k = 0; k < entry.keys.length; k++) {
-    var normal = entry.keys[k].split(/[^a-z0-9]+/i).map(sudsy.stem).join(' ');
+    var normal = entry.keys[k].split(/[^a-z0-9]+/i).map(soapzy.stem).join(' ');
     if (stems[normal] === entry.keys[k]) {
       doubleCounted.push(entry.id + ': "' + entry.keys[k] + '" is listed twice');
     }

@@ -11,7 +11,10 @@ wash-fold.html        Wash & fold drop-off
 locations.html        Visit us (hours, map, photos)
 assets/css/styles.css All styling, one file
 assets/fonts/         Outfit + Public Sans, self-hosted (59 KB total)
-assets/img/           Photography
+assets/img/           Photography, the two logos and the mascot
+assets/js/            The chat widget and two small page scripts
+brand/source/         The logo and mascot artwork exactly as supplied
+tools/                One script, which turns brand/source into assets/img
 ```
 
 ### How the pages connect
@@ -55,7 +58,6 @@ HTML files.
 | Email | `hello@soapzlaundry.com` | footer of all 4 pages |
 | Street address | `100 Example Street` | footers, `locations.html`, `index.html` |
 | City, state, ZIP | `Springfield, MO 65804` | footers, `locations.html`, `index.html` |
-| Opening hours | `6:00am to 10:00pm` | utility bar and footer on all 4 pages, hours tables on `index.html` and `locations.html` |
 | Self-service prices | `$3.25 / $5.50 / $8.00 / $0.25` | `self-service.html` |
 | Wash & fold prices | `$1.75 / $17.50 / $22.00` | `wash-fold.html` |
 | Map embed | `q=100%20Example%20Street...` | `locations.html` |
@@ -68,7 +70,23 @@ Every placeholder price and address also has an uppercase `PLACEHOLDER`
 comment directly above it in the HTML, so you can find them by searching the
 files for `PLACEHOLDER`.
 
-Ask Sudsy has placeholders of its own. A handful of its answers stand in for
+**The opening hours are the one real value on the site: 7:00am to 9:00pm, every
+day, last wash 8:00pm.** If they ever change, they are in more places than you
+would expect, and the four that are easy to miss are not clock times at all:
+
+| Where | What it says |
+|---|---|
+| Utility bar and footer, all 5 pages | `7:00am to 9:00pm` |
+| Hours tables on `home.html` and `locations.html` | the three day rows, plus `Last wash` |
+| JSON-LD in `index.html` and `home.html` | `"opens": "07:00"`, `"closes": "21:00"` — this is what Google reads |
+| `chat.js` `hours` and `holidays` | the two answers that quote the hours outright |
+| `chat.js` `busy` and `trip-time`, and the "how busy are we" band on `self-service.html` | "before 10:00am or after 7:00pm" is the quiet window, which only makes sense inside the opening hours |
+| `chat.js` `turnaround` | same-day orders ready by 6:00pm, which has to stay before closing |
+
+The last four are the ones that go quietly wrong: nothing looks broken, the
+advice is just no longer true.
+
+Ask Soapzy has placeholders of its own. A handful of its answers stand in for
 decisions only you can make, so instead of inventing a policy they point at the
 phone number: delivery, gift cards and EBT, discounts, hiring, which languages
 the staff speak, and whether there is a notice board or a donation bin. The app
@@ -77,9 +95,16 @@ two features do not exist yet at all. Every one of them has a `PLACEHOLDER
 POLICY` comment above it in `assets/js/chat.js`, so searching that file for
 `PLACEHOLDER` finds the lot.
 
-## Ask Sudsy, the chat widget
+## Ask Soapzy, the chat widget
 
 The mascot chat in the corner of every page is built by `assets/js/chat.js`.
+Soapzy is the detergent-bottle character from the brand artwork; his name and
+his portrait are the two constants at the top of that file (`NAME` and
+`MASCOT`), so renaming him or swapping his picture is a one-line change in one
+place. The greeting topic also answers to him by name — `soapzy`, plus the
+`soapzee` and `soapzie` spellings people reach for by ear — so those keywords
+have to move with him too.
+
 There is no model behind it and nothing is sent anywhere: it matches the
 question against a list of 150 topics, each with the keywords that lead to it.
 The file's own comments cover how a topic is scored. What matters if you are
@@ -117,18 +142,50 @@ editing it:
   is the sort of thing that looks right on whichever handset you own and is
   broken on the next one. Touch it and run the test.
 
-When you are ready for a real model, `askSudsy()` at the bottom of the file is
+When you are ready for a real model, `askSoapzy()` at the bottom of the file is
 the only function to replace, and the comment above it has the code. Call your
 own server rather than Anthropic directly, or your API key ships to every
 visitor.
 
-## Logo
+## The logos and the mascot
 
-The `SOAPZ / Laundry Co.` badge is a CSS wordmark, not an image file. It lives
-in the `.brand` block in `styles.css` and appears in the header and footer of
-each page. When you have real logo artwork, replace the contents of
-`<a class="brand">` with an `<img>` and delete the `.brand__badge`,
-`.brand__name` and `.brand__tag` rules.
+There are two official marks and one mascot, and each has a job:
+
+| File | What it is | Where it appears |
+|---|---|---|
+| `assets/img/logo-wordmark.png` | The horizontal `Soapz Laundry / Est. 2026` wordmark, navy and red | Nav bar on all four inner pages, and the home hero card |
+| `assets/img/logo-badge.png` | The round bubble emblem on its navy field | Footer of all four pages, and the card on `index.html` |
+| `assets/img/mascot-soapzy-avatar.png` | Soapzy, cropped to head and thumb | The chat launcher, its header and every reply bubble |
+| `assets/img/mascot-soapzy.png` | Soapzy full figure, transparent | Nothing yet. Here for when a page wants him larger |
+| `assets/img/icon-180.png`, `favicon-32.png` | The badge, square | Browser tab and phone home screen |
+
+The artwork as it was handed over is in `brand/source/`. Nothing on the site
+loads those files; they are the masters. `tools/build-brand-assets.py` is what
+turns them into everything in the table above:
+
+```
+python3 tools/build-brand-assets.py      # needs Pillow and NumPy
+```
+
+Re-run it if you get new artwork or want a different crop. It does three
+things worth knowing about:
+
+- **It cuts the white page off the wordmark and the mascot** so both can sit on
+  a coloured band. It does that by flooding in from the edges rather than by
+  making white transparent everywhere, because the white *inside* the art has
+  to stay: the mascot's shoes and eyes, and the white letterforms of "Soapz".
+- **It drops the fragments.** The supplied mascot file has pieces of other
+  elements running off the bottom edge; anything that is cut off by the edge
+  and is not the mascot himself is discarded. The mascot's shoes are clipped in
+  the original, which is why the chat uses a head-and-thumb crop rather than
+  the whole figure.
+- **It cuts the badge from 380 kB to 130 kB** by taking it down to a 128-colour
+  palette. The artwork is flat colour with a printed grain and does not tell
+  the difference.
+
+The wordmark is navy and red, so it only goes on white or cream. Anywhere the
+background is navy, use the badge instead: the badge is drawn on the same
+`--navy` the site uses, so its edge disappears into the band.
 
 ## Photography
 
@@ -161,8 +218,8 @@ some choices are deliberate and worth preserving if you edit things:
 
 - **18px base text**, not the usual 16px. All sizes are in `rem`, so the whole
   site scales up correctly if someone increases their browser or OS text size.
-- **No hamburger menu.** All four links are always visible. On phones the nav
-  becomes a 2x2 grid of large tap targets instead of hiding behind an icon.
+- **No hamburger menu.** All four links are always visible. On phones they sit
+  in one row under the wordmark instead of hiding behind an icon.
 - **Buttons are at least 61px tall** and go full-width on mobile.
 - **Nothing animates on its own.** No carousels, no autoplay, no scroll effects.
   The only motion is a small response when you hover or press something, and
@@ -176,30 +233,36 @@ some choices are deliberate and worth preserving if you edit things:
   announces "Yes, I will do it myself" instead of just "Yes". If you delete a
   hint, delete its `aria-describedby` too, or the button loses that context.
 - **The phone number is in the top bar of every page** and is tap-to-call.
-- **FAQ uses native HTML** `<details>` elements, so it works with keyboards and
-  screen readers with no JavaScript. The site ships zero JavaScript.
-- Colour contrast passes WCAG AA throughout. Body text is 6.4:1 or better
-  against its background, and white on the sky-blue buttons is 4.68:1.
+- **The only JavaScript is the chat widget** and two small scripts that decide
+  where a page starts when you reload it. Every page reads and works with
+  JavaScript switched off; you lose Soapzy in the corner and nothing else.
+- Colour contrast passes WCAG AA throughout, and the figures are in the token
+  comments in `styles.css` so they can be checked. Body text is 13.2:1 on
+  white, cream on the navy buttons and bands is 10.4:1, and the lightest
+  pairing on the site is ink on the teal fact strip at 6.7:1.
 
-### About the blues
+### About the colours
 
-The palette is sky blue, defined as three tokens at the top of `styles.css`.
-The split between them is deliberate, so be careful if you edit them:
+Every colour comes off the two logos rather than being chosen to sit near
+them. They are defined as tokens at the top of `styles.css`, and the split
+between them is deliberate:
 
-| Token | Value | Only use it for |
-|---|---|---|
-| `--brand` | `#0a7ab8` | Button fills and icons. Too light for text on a white or tinted background. |
-| `--brand-dark` | `#08628f` | All coloured text: links, prices, the phone number. |
-| `--brand-darker` | `#0a5f8a` | The dark bands: top bar, facts strip, footer. |
+| Token | Value | Taken from | Only use it for |
+|---|---|---|---|
+| `--navy` | `#0f3f59` | The badge's field | Every fill (bars, buttons, footer) **and** every piece of blue text. Dark enough to do both. |
+| `--paper` | `#faf6ea` | The badge's lettering | Tinted section bands, and the text that goes on navy. |
+| `--teal` | `#7cc6b8` | The badge's bubbles | Light fills only: the fact strip, hairlines, the step rule. Text on it stays `--ink`. |
+| `--teal-deep` | `#1c7a6e` | The same hue, darkened | The rare case where teal has to be written with. |
+| `--coral` | `#e26a4a` | The badge's ring | Lines and dots only. It never carries text, at any size. |
 
-Buttons cannot get much lighter than `--brand` without white label text
-dropping below the 4.5:1 minimum and becoming hard to read, which matters more
-than usual for this audience. If you want the page to feel lighter still, raise
-`--sky-50`, `--sky-100` and `--paper` rather than lightening `--brand`.
+The one rule that holds the rest together: **navy is both the fill and the
+text colour**, which is what makes link underlines coral rather than
+decorative. A navy link inside a navy sentence cannot be told apart by hue, so
+the underline is what marks it, and colour never carries meaning on its own.
 
-The site is light mode only, on purpose, because the brand is white and light
-blue. If you ever want a dark mode it would need a second set of colour tokens
-in `styles.css`.
+The site is light mode only, on purpose: the marks are drawn for a light page.
+A dark mode would need a second set of tokens and a reversed wordmark, since
+the navy-and-red wordmark disappears on a dark background.
 
 ## The app and the Comfort Club
 
@@ -274,7 +337,7 @@ and deliberately worded that way on the page.
 - Real customer reviews. There is no testimonials section yet because inventing
   reviews for a new business would be dishonest. Once you have real ones, the
   `.panel` style is a good fit.
-- A real model behind Ask Sudsy. Matching on keywords covers the questions
+- A real model behind Ask Soapzy. Matching on keywords covers the questions
   people actually ask, but there are three things it will never do, and all
   three need a server rather than more keywords: answer about *this* customer's
   order, hold a conversation over more than the one previous message, and take
