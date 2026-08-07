@@ -1,9 +1,13 @@
 /* ==========================================================================
    Soapz Laundry Co.
    --------------------------------------------------------------------------
-   THEME       White + light blue. Light mode is locked deliberately because
-               the brand brief specifies white/light-blue. `color-scheme:light`
-               stops browsers auto-darkening form controls and breaking it.
+   THEME       Taken straight off the logos. Every colour below is sampled
+               from assets/img/logo-badge.png or logo-wordmark.png rather than
+               picked to sit near them: deep navy field, cream lettering, the
+               teal of the bubbles and the coral of the ring. Light mode is
+               locked because the marks are drawn for a light page;
+               `color-scheme:light` stops browsers auto-darkening form
+               controls and breaking it.
    TYPE        Outfit (display) + Public Sans (body). Public Sans is used for
                all reading text because it was drawn for legibility at size,
                which matters for the older audience this site is built for.
@@ -14,7 +18,12 @@
                touch first.
    SHAPE RULE  Interactive controls = full pill. Surfaces (cards, images,
                panels) = 16px. Inputs = 12px. Applied everywhere, no mixing.
-   ACCENT      One accent only: --brand blue. No second accent hue anywhere.
+   COLOUR RULE Navy carries the structure and every piece of blue text. Cream
+               is what sits on navy. Teal and coral are the logo's own
+               accents and are rationed: teal fills one band and tints the
+               icon chips, coral only ever draws a line (link underlines,
+               rules, dots) and never carries text. Nothing else is
+               introduced.
    ========================================================================== */
 
 /* ---------- Fonts (self-hosted, no external requests) ---------- */
@@ -37,24 +46,28 @@
 :root {
   color-scheme: light;
 
+  /* ---- Surfaces ---- */
   --white: #ffffff;
-  --paper: #f2fafe;
-  --sky-50: #eaf6fe;
-  --sky-100: #d4edfc;
-  --sky-200: #ade0fa;
+  --paper: #faf6ea;        /* the badge cream, lightened: tinted bands   */
+  --sand:  #f0e9d6;        /* one step deeper: chat log, inset fills     */
+  --mist:  #eaf4f1;        /* the badge teal at a whisper: hover, chips  */
+  --line:  #ded7c4;        /* warm hairline, sits under both of the above */
 
-  /* Sky blue. One hue, three jobs, and the pairing rule is the whole system:
-     --brand is the sky FILL and always carries --ink text on top (6.3:1).
-     It is too light for white text, so nothing on this site does that.
-     --brand-dark is every blue TEXT, icon, outline and border on a light
-     background. --brand-deep is only a hover state on top of a sky fill. */
-  --brand: #56bcef;        /* sky fill. --ink on it = 6.3:1        */
-  --brand-dark: #0a72a5;   /* text + icons. 5.4:1 white, 4.9:1 sky-50 */
-  --brand-deep: #2f9ed6;   /* hover on a sky fill                  */
+  /* ---- Navy. The badge's own field colour, so the badge artwork drops onto
+     a navy band with no visible edge. It is the only blue on the site: it
+     fills the bars and buttons AND writes every piece of blue text, because
+     at 11.2:1 on white it is dark enough to do both jobs. Cream is what
+     goes on top of it (10.4:1); --navy-deep is only ever a hover state. */
+  --navy: #0f3f59;
+  --navy-deep: #0a2e41;
 
-  --ink: #0f2e42;          /* 14.1:1 on white  */
-  --ink-2: #41627c;        /* 6.4:1 on white   */
-  --line: #c6e4f7;
+  /* ---- The two logo accents. Rationed on purpose, see COLOUR RULE above. */
+  --teal: #7cc6b8;         /* light fill only. --ink on it = 6.7:1       */
+  --teal-deep: #1c7a6e;    /* the same hue dark enough to write with, 5.2:1 */
+  --coral: #e26a4a;        /* lines and dots only. Never carries text.   */
+
+  --ink: #16324a;          /* 13.2:1 on white, 12.2:1 on cream */
+  --ink-2: #4a6376;        /* 6.3:1 on white,  5.8:1 on cream  */
 
   --radius-surface: 16px;
   --radius-input: 12px;
@@ -109,17 +122,27 @@ h3 { font-size: clamp(1.2rem, 2vw, 1.4rem); }
 p { margin: 0 0 1.1em; max-width: 62ch; }
 p:last-child { margin-bottom: 0; }
 
-a { color: var(--brand-dark); }
+/* Navy is also the body text colour, so a link cannot be told apart from a
+   sentence by hue alone. The coral underline is what marks it, which is the
+   accessible way round anyway: never colour on its own. */
+a {
+  color: var(--navy);
+  text-decoration-color: var(--coral);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+a:hover { text-decoration-thickness: 3px; }
 
 /* ---------- Focus: thick and unmissable ---------- */
 :focus-visible {
-  outline: 3px solid var(--brand-dark);
+  outline: 3px solid var(--navy);
   outline-offset: 3px;
   border-radius: 4px;
 }
-/* The sky bands are light, so the focus ring goes dark on them, not white. */
-.on-dark :focus-visible,
-.footer :focus-visible { outline-color: var(--ink); }
+/* Navy bands would swallow a navy ring, so it flips to cream on them. */
+.utility :focus-visible,
+.footer :focus-visible,
+.banner :focus-visible { outline-color: var(--paper); }
 
 /* ---------- Helpers ---------- */
 .wrap { width: 100%; max-width: var(--wrap); margin-inline: auto; padding-inline: 1.25rem; }
@@ -134,7 +157,7 @@ a { color: var(--brand-dark); }
 
 .skip-link {
   position: absolute; left: 1rem; top: -4rem; z-index: 100;
-  background: var(--brand); color: var(--ink); padding: .85rem 1.4rem;
+  background: var(--navy); color: var(--paper); padding: .85rem 1.4rem;
   border-radius: 0 0 var(--radius-input) var(--radius-input);
   font-weight: 600; text-decoration: none;
 }
@@ -146,8 +169,8 @@ a { color: var(--brand-dark); }
    desktop (68px tall) and becomes a wrapped grid of large targets on mobile.
    ========================================================================== */
 .utility {
-  background: var(--brand);
-  color: var(--ink);
+  background: var(--navy);
+  color: var(--paper);
   font-size: .82rem;
   letter-spacing: .01em;
 }
@@ -158,8 +181,8 @@ a { color: var(--brand-dark); }
 }
 .utility p { margin: 0; display: inline-flex; align-items: center; gap: .45rem; }
 .utility .icon { width: 1.05rem; height: 1.05rem; }
-.utility a { color: var(--ink); font-weight: 700; text-decoration: none; }
-.utility a:hover { text-decoration: underline; }
+.utility a { color: var(--paper); font-weight: 700; text-decoration: none; }
+.utility a:hover { text-decoration: underline; text-decoration-color: var(--teal); }
 
 .masthead {
   position: sticky; top: 0; z-index: 40;
@@ -194,35 +217,32 @@ a { color: var(--brand-dark); }
   white-space: nowrap;
   transition: background-color .15s ease, color .15s ease;
 }
-.nav__list a:hover { background: var(--sky-50); color: var(--brand-dark); }
+.nav__list a:hover { background: var(--mist); color: var(--navy); }
 .nav__list a[aria-current="page"] {
-  color: var(--brand-dark);
-  background: var(--sky-50);
-  box-shadow: inset 0 -3px 0 var(--brand-dark);
+  color: var(--navy);
+  background: var(--mist);
+  box-shadow: inset 0 -3px 0 var(--navy);
 }
 
-/* Wordmark badge. Placeholder logo: swap the whole .brand block for the
-   real Soapz artwork when it exists. */
-.brand { text-decoration: none; display: inline-block; }
+/* ---------- The two official marks ----------------------------------------
+   .brand__mark is the horizontal "Soapz Laundry / Est. 2026" wordmark, cut
+   out of its white page (see the note in README) so it can sit on the white
+   nav bar or a cream card. Its ink is navy and red, so it only ever goes on
+   a light surface.
+   .brand__badge is the round bubble emblem, which is drawn on its own navy
+   field. That field is the same --navy the footer and the banners use, so on
+   those the square edge disappears and the mark reads as printed onto the
+   band. Sized by height in both cases; width follows the aspect ratio. */
+.brand { text-decoration: none; display: inline-block; line-height: 0; }
+.brand__mark {
+  height: 3rem; width: auto;
+  /* The supplied artwork carries a little transparent margin of its own, so
+     nothing extra is added here. */
+}
 .brand__badge {
-  display: inline-flex; flex-direction: column; align-items: center;
-  border: 2px solid var(--brand);
-  border-radius: var(--radius-pill);
-  background: var(--white);
-  padding: .3rem 1.55rem .35rem;
-  line-height: 1;
-}
-.brand__name {
-  font-family: var(--font-display);
-  font-weight: 700; font-size: 1.35rem; letter-spacing: .1em;
-  color: var(--brand-dark);
-}
-.brand__tag {
-  margin-top: .2rem; padding-top: .2rem;
-  border-top: 1px solid var(--sky-200);
-  font-size: .5rem; letter-spacing: .22em; text-transform: uppercase;
-  color: var(--brand-dark); font-weight: 700;
-  width: 100%; text-align: center;
+  width: auto;
+  border-radius: var(--radius-surface);
+  display: block;
 }
 
 /* ==========================================================================
@@ -241,27 +261,27 @@ a { color: var(--brand-dark); }
 }
 .btn:active { transform: translateY(1px); }
 
-.btn--primary { background: var(--brand); color: var(--ink); }   /* 6.3:1 */
-.btn--primary:hover { background: var(--brand-deep); }
+.btn--primary { background: var(--navy); color: var(--paper); }   /* 10.4:1 */
+.btn--primary:hover { background: var(--navy-deep); }
 
 .btn--secondary {
-  background: var(--white); color: var(--brand-dark);
-  border-color: var(--brand-dark);
+  background: var(--white); color: var(--navy);
+  border-color: var(--navy);
 }
-.btn--secondary:hover { background: var(--sky-50); }
+.btn--secondary:hover { background: var(--mist); }
 
 /* For use over photography: solid fill so text never sits on the image. */
-.btn--onImage { background: var(--white); color: var(--brand-dark); border-color: var(--white); }
-.btn--onImage:hover { background: var(--sky-50); }
+.btn--onImage { background: var(--white); color: var(--navy); border-color: var(--white); }
+.btn--onImage:hover { background: var(--mist); }
 
 .btn-row { display: flex; flex-wrap: wrap; gap: .85rem; margin-top: 1.6rem; }
 
 .textlink {
   display: inline-flex; align-items: center; gap: .4rem;
-  font-weight: 700; color: var(--brand-dark); text-decoration: none;
-  border-bottom: 2px solid var(--sky-200); padding-bottom: 2px;
+  font-weight: 700; color: var(--navy); text-decoration: none;
+  border-bottom: 2px solid var(--coral); padding-bottom: 2px;
 }
-.textlink:hover { border-bottom-color: var(--brand); }
+.textlink:hover { border-bottom-color: var(--navy); }
 .textlink .icon { width: 1.15rem; height: 1.15rem; }
 
 /* ==========================================================================
@@ -269,14 +289,15 @@ a { color: var(--brand-dark); }
    Photo is full-bleed; the copy sits on a solid white card so the text never
    competes with the image for contrast. That is the accessibility win here.
    ========================================================================== */
-.hero { position: relative; background: var(--sky-50); }
+.hero { position: relative; background: var(--paper); }
 .hero__media { position: absolute; inset: 0; }
 .hero__media img { width: 100%; height: 100%; object-fit: cover; }
-/* Soft brand wash so stock photography sits inside the palette instead of
-   floating next to it. Kept light enough that the photo stays legible. */
+/* Brand wash so stock photography sits inside the palette instead of floating
+   next to it: the badge navy across the top corner falling away to its teal.
+   Kept light enough that the photo stays legible. */
 .hero__media::after {
   content: ""; position: absolute; inset: 0; pointer-events: none;
-  background: linear-gradient(160deg, rgba(86, 188, 239, .30), rgba(47, 158, 214, .12) 60%);
+  background: linear-gradient(160deg, rgba(15, 63, 89, .30), rgba(124, 198, 184, .16) 65%);
 }
 .hero__inner { position: relative; padding-block: clamp(2rem, 5vw, 4.5rem); }
 
@@ -288,8 +309,12 @@ a { color: var(--brand-dark); }
   max-width: 37rem;             /* wide enough to keep both CTAs on one row */
 }
 /* The wordmark sits above the headline here, so the hero carries the logo
-   rather than leaving it to the nav bar alone. */
-.hero__card .brand__badge { margin-bottom: clamp(1rem, 2.5vw, 1.5rem); }
+   rather than leaving it to the nav bar alone. Bigger than the nav copy of
+   it, because here it has a whole card to itself. */
+.hero__card .brand__mark {
+  height: clamp(3.1rem, 7vw, 4.2rem);
+  margin-bottom: clamp(1rem, 2.5vw, 1.5rem);
+}
 .hero__card h1 { margin-bottom: .45em; }
 .hero__card p { font-size: 1.15rem; color: var(--ink-2); }
 
@@ -317,7 +342,7 @@ a { color: var(--brand-dark); }
 }
 .entry::before {
   content: ""; position: absolute; inset: 0; pointer-events: none;
-  background: linear-gradient(200deg, rgba(86, 188, 239, .28), rgba(47, 158, 214, .12) 60%);
+  background: linear-gradient(200deg, rgba(15, 63, 89, .28), rgba(124, 198, 184, .14) 65%);
 }
 
 .entry__card {
@@ -330,24 +355,18 @@ a { color: var(--brand-dark); }
   box-shadow: var(--shadow-md);
 }
 
-/* Scaled up to hold its own inside the card, rather than sitting in it at nav
-   size. Everything is clamped off the viewport so it shrinks with the card and
-   never pushes past its padding. Centres itself: the badge is inline-flex, so
-   the card's text-align does it. */
+/* This page has no nav bar, so the mark on the card is the only place the
+   business is named, and it gets the round badge rather than the wordmark:
+   it is the richer of the two and there is room for it here. Sized off the
+   viewport so it shrinks with the card instead of pushing past its padding,
+   and centred by the card's text-align, which needs it to stay inline. */
 .entry__mark {
-  max-width: 100%;
+  display: inline-block;
+  width: clamp(8rem, 34vw, 11.5rem);
   margin-bottom: clamp(1.25rem, 3.5vw, 2rem);
-  padding: .5rem clamp(1.75rem, 6vw, 2.9rem) .55rem;
-  border-width: 3px;
-}
-.entry__mark .brand__name {
-  font-size: clamp(1.75rem, 6.5vw, 2.5rem);
-  letter-spacing: .11em;
-}
-.entry__mark .brand__tag {
-  margin-top: .3rem; padding-top: .3rem;
-  font-size: clamp(.6rem, 1.9vw, .74rem);
-  letter-spacing: .24em;
+  /* No box-shadow here: unlike the old navy-field badge, this mark's PNG is
+     transparent, so a shadow on the element box would trace a rectangle
+     around empty space instead of hugging the art. */
 }
 
 .entry h1 {
@@ -369,11 +388,11 @@ a { color: var(--brand-dark); }
   letter-spacing: .01em;
   padding-inline: 2.25rem;
 }
-.btn--yes { background: var(--brand); color: var(--ink); border-color: var(--brand); }
-.btn--yes:hover { background: var(--brand-deep); border-color: var(--brand-deep); }
+.btn--yes { background: var(--navy); color: var(--paper); border-color: var(--navy); }
+.btn--yes:hover { background: var(--navy-deep); border-color: var(--navy-deep); }
 
-.btn--no { background: var(--white); color: var(--ink); border-color: var(--brand-dark); }
-.btn--no:hover { background: var(--sky-50); }
+.btn--no { background: var(--white); color: var(--ink); border-color: var(--navy); }
+.btn--no:hover { background: var(--mist); }
 
 @media (max-width: 26rem) {
   .answers { flex-direction: column; }
@@ -383,14 +402,16 @@ a { color: var(--brand-dark); }
 /* ==========================================================================
    Fact strip
    ========================================================================== */
-.facts { background: var(--brand); color: var(--ink); }
+/* The one place the badge's teal fills a whole band. It is a light colour, so
+   the text on it stays --ink (6.7:1) rather than turning cream. */
+.facts { background: var(--teal); color: var(--ink); }
 .facts__grid {
   display: grid; gap: 1.25rem 2.5rem;
   grid-template-columns: repeat(3, 1fr);
   padding-block: 1.6rem;
 }
 .fact { display: flex; align-items: center; gap: .8rem; font-weight: 600; }
-.fact .icon { color: var(--sky-200); }
+.fact .icon { color: var(--navy); }
 .fact span { line-height: 1.4; }
 
 /* ==========================================================================
@@ -411,7 +432,7 @@ a { color: var(--brand-dark); }
   overflow: hidden;
   transition: box-shadow .18s ease, border-color .18s ease;
 }
-.service:hover { box-shadow: var(--shadow-md); border-color: var(--sky-200); }
+.service:hover { box-shadow: var(--shadow-md); border-color: var(--teal); }
 .service__img { aspect-ratio: 16 / 10; }
 .service__img img { width: 100%; height: 100%; object-fit: cover; }
 .service__body { padding: clamp(1.5rem, 2.5vw, 2rem); display: flex; flex-direction: column; flex: 1; }
@@ -427,7 +448,7 @@ a { color: var(--brand-dark); }
 .checklist { list-style: none; margin: 1.5rem 0 0; padding: 0; display: grid; gap: 1.1rem; }
 .checklist li { display: flex; gap: .85rem; align-items: flex-start; font-size: 1.06rem; }
 .checklist .icon {
-  color: var(--brand-dark); background: var(--sky-50);
+  color: var(--navy); background: var(--mist);
   border-radius: var(--radius-pill); padding: .2rem;
   width: 1.7rem; height: 1.7rem; margin-top: .1rem;
 }
@@ -441,7 +462,7 @@ a { color: var(--brand-dark); }
   border: 1px solid var(--line);
   border-radius: var(--radius-surface);
 }
-.faq details[open] { border-color: var(--sky-200); box-shadow: var(--shadow-sm); }
+.faq details[open] { border-color: var(--teal); box-shadow: var(--shadow-sm); }
 .faq summary {
   display: flex; align-items: center; justify-content: space-between; gap: 1rem;
   padding: 1.15rem 1.4rem;
@@ -451,12 +472,12 @@ a { color: var(--brand-dark); }
 .faq summary::-webkit-details-marker { display: none; }
 .faq summary::after {
   content: ""; flex: none; width: .8rem; height: .8rem;
-  border-right: 3px solid var(--brand-dark); border-bottom: 3px solid var(--brand-dark);
+  border-right: 3px solid var(--navy); border-bottom: 3px solid var(--navy);
   transform: rotate(45deg); margin-top: -.35rem;
   transition: transform .18s ease;
 }
 .faq details[open] summary::after { transform: rotate(-135deg); margin-top: .2rem; }
-.faq summary:hover { color: var(--brand-dark); }
+.faq summary:hover { color: var(--navy); }
 .faq__answer { padding: 0 1.4rem 1.35rem; }
 .faq__answer p { color: var(--ink-2); font-size: 1.05rem; }
 
@@ -469,7 +490,7 @@ a { color: var(--brand-dark); }
   border-radius: var(--radius-surface); padding: clamp(1.5rem, 3vw, 2.1rem);
 }
 .panel h3 { display: flex; align-items: center; gap: .6rem; }
-.panel h3 .icon { color: var(--brand-dark); }
+.panel h3 .icon { color: var(--navy); }
 
 .hours { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: .55rem 1.5rem; font-size: 1.05rem; }
 .hours dt { font-weight: 600; }
@@ -480,7 +501,7 @@ a { color: var(--brand-dark); }
 .phone-big {
   display: inline-flex; align-items: center; gap: .6rem;
   font-family: var(--font-display); font-size: clamp(1.5rem, 3vw, 1.9rem);
-  font-weight: 700; color: var(--brand-dark); text-decoration: none;
+  font-weight: 700; color: var(--navy); text-decoration: none;
   margin-block: .6rem;
 }
 .phone-big:hover { text-decoration: underline; }
@@ -492,16 +513,21 @@ a { color: var(--brand-dark); }
 .pagehead h1 { margin-bottom: .35em; }
 .pagehead p { font-size: 1.2rem; color: var(--ink-2); max-width: 50ch; }
 
+/* Used where the h1 has no supporting line under it, so it needs to stand on
+   its own as the section's header rather than read as an orphaned label. */
+.pagehead--center h1 { text-align: center; margin-bottom: 0; }
+
 /* Photo banner variant used on the Wash, Dry and Fold page */
-.banner { position: relative; background: var(--brand); }
+.banner { position: relative; background: var(--navy); }
 .banner__media { position: absolute; inset: 0; }
 .banner__media img { width: 100%; height: 100%; object-fit: cover; }
-/* Sky scrim, near-solid where the text sits so the copy keeps 5.8:1 against
-   it no matter what the photo underneath is doing. */
-.banner__scrim { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(86,188,239,.96) 0%, rgba(86,188,239,.90) 45%, rgba(86,188,239,.45) 100%); }
-.banner__inner { position: relative; padding-block: clamp(3rem, 7vw, 5.5rem); color: var(--ink); }
-.banner__inner h1 { color: var(--ink); max-width: 18ch; }
-.banner__inner p { color: var(--ink); font-size: 1.2rem; max-width: 46ch; }
+/* Navy scrim, near-solid where the text sits so the cream copy keeps 9.6:1
+   against it no matter what the photo underneath is doing, and thinning to
+   the right so the photograph is still visible. */
+.banner__scrim { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(15,63,89,.96) 0%, rgba(15,63,89,.90) 45%, rgba(15,63,89,.35) 100%); }
+.banner__inner { position: relative; padding-block: clamp(3rem, 7vw, 5.5rem); color: var(--paper); }
+.banner__inner h1 { color: var(--paper); max-width: 18ch; }
+.banner__inner p { color: var(--paper); font-size: 1.2rem; max-width: 46ch; }
 
 /* ==========================================================================
    Price tiles  (avoids a long hairline spec table)
@@ -514,15 +540,20 @@ a { color: var(--brand-dark); }
 .tile__label { font-weight: 700; font-size: 1.05rem; margin-bottom: .25rem; }
 .tile__price {
   font-family: var(--font-display); font-weight: 700;
-  font-size: clamp(1.9rem, 4vw, 2.4rem); color: var(--brand-dark);
+  font-size: clamp(1.9rem, 4vw, 2.4rem); color: var(--navy);
   line-height: 1.1; font-variant-numeric: tabular-nums;
 }
 .tile__note { color: var(--ink-2); font-size: .95rem; margin-top: .35rem; }
 
+/* Fine print under a button row: the app is optional, and this line only
+   exists to say so. Small and quiet on purpose, so it reads as a footnote
+   rather than a second lead-in competing with the one above the buttons. */
+.disclaimer { font-size: .875rem; color: var(--ink-2); max-width: 46ch; margin-top: .85rem; }
+
 /* Payment options row */
 .payrow { display: grid; gap: 1.25rem; grid-template-columns: repeat(3, 1fr); }
 .pay { display: flex; gap: .9rem; align-items: flex-start; }
-.pay .icon { color: var(--brand-dark); width: 1.9rem; height: 1.9rem; }
+.pay .icon { color: var(--navy); width: 1.9rem; height: 1.9rem; }
 .pay h3 { font-size: 1.1rem; margin-bottom: .2em; }
 .pay p { color: var(--ink-2); font-size: 1rem; }
 
@@ -536,14 +567,14 @@ a { color: var(--brand-dark); }
 .step::before {
   content: ""; position: absolute; top: 1.1rem;
   left: -0.875rem; right: -0.875rem;
-  height: 2px; background: var(--sky-200);
+  height: 2px; background: var(--teal);
 }
 .step:last-child::before { right: 50%; }
 .step:first-child::before { left: 50%; }
 .step__dot {
   position: absolute; top: 0; left: 50%; transform: translateX(-50%);
   width: 2.2rem; height: 2.2rem; border-radius: var(--radius-pill);
-  background: var(--brand); color: var(--ink);
+  background: var(--navy); color: var(--paper);
   display: grid; place-items: center;
 }
 .step__dot .icon { width: 1.2rem; height: 1.2rem; }
@@ -559,7 +590,7 @@ a { color: var(--brand-dark); }
 
 .map-frame {
   border: 1px solid var(--line); border-radius: var(--radius-surface);
-  overflow: hidden; background: var(--sky-50);
+  overflow: hidden; background: var(--mist);
 }
 .map-frame iframe { display: block; width: 100%; height: 26rem; border: 0; }
 
@@ -567,7 +598,7 @@ a { color: var(--brand-dark); }
    Callout
    ========================================================================== */
 .callout {
-  background: var(--sky-50); border: 1px solid var(--sky-200);
+  background: var(--mist); border: 1px solid var(--teal);
   border-radius: var(--radius-surface);
   padding: clamp(1.75rem, 4vw, 2.75rem);
   display: flex; flex-wrap: wrap; gap: 1.5rem;
@@ -583,24 +614,33 @@ a { color: var(--brand-dark); }
 .callout .btn-row { margin-top: 0; }
 
 /* ==========================================================================
-   Ask Sudsy  (chat widget, built by assets/js/chat.js)
+   Ask Soapzy  (chat widget, built by assets/js/chat.js)
    Fixed to the bottom-right corner on every page except the entry question.
+   Soapzy is the mascot from the brand artwork, so he arrives as a PNG with
+   his own navy and blue. He is set on cream discs rather than straight onto
+   the teal or the navy, which keeps his own blues from arguing with the
+   band behind him.
    ========================================================================== */
 .chat-launcher {
   position: fixed; right: 1.25rem; bottom: 1.25rem; z-index: 60;
   display: inline-flex; align-items: center; gap: .6rem;
   padding: .55rem 1.25rem .55rem .6rem;
   background: var(--white); color: var(--ink);
-  border: 2px solid var(--brand); border-radius: var(--radius-pill);
+  border: 2px solid var(--navy); border-radius: var(--radius-pill);
   font-family: var(--font-body); font-size: 1rem; font-weight: 700;
   box-shadow: var(--shadow-md); cursor: pointer;
   transition: background-color .15s ease, transform .1s ease;
   animation: chat-launcher-float 3.4s ease-in-out infinite;
 }
-.chat-launcher:hover { background: var(--sky-50); animation-play-state: paused; }
+.chat-launcher:hover { background: var(--paper); animation-play-state: paused; }
 .chat-launcher:active { transform: translateY(1px); }
-.chat-launcher.is-open { background: var(--sky-50); animation-play-state: paused; }
-.chat-launcher img { display: block; }
+.chat-launcher.is-open { background: var(--paper); animation-play-state: paused; }
+/* The disc is what makes him read as a portrait rather than as a sticker
+   floating on the button. */
+.chat-launcher img {
+  display: block;
+  background: var(--sand); border-radius: var(--radius-pill);
+}
 
 @keyframes chat-launcher-float {
   0%, 100% { transform: translateY(0); }
@@ -638,20 +678,24 @@ a { color: var(--brand-dark); }
 .chat-head {
   display: flex; align-items: center; gap: .75rem;
   padding: .85rem 1rem;
-  background: var(--brand); color: var(--ink);
+  background: var(--navy); color: var(--paper);
   cursor: grab; touch-action: none;
 }
 .chat-panel.is-dragging .chat-head { cursor: grabbing; }
-.chat-head__mascot { display: block; flex: none; }
+.chat-head__mascot {
+  display: block; flex: none;
+  background: var(--sand); border-radius: var(--radius-pill);
+  box-shadow: inset 0 0 0 2px var(--teal);
+}
 .chat-head__name { margin: 0; font-family: var(--font-display); font-weight: 700; font-size: 1.05rem; }
 .chat-head__role { margin: 0; font-size: .82rem; }
 .chat-close {
   margin-left: auto; flex: none;
   width: 2rem; height: 2rem; line-height: 1;
   background: transparent; border: 0; border-radius: var(--radius-pill);
-  color: var(--ink); font-size: 1.5rem; cursor: pointer;
+  color: var(--paper); font-size: 1.5rem; cursor: pointer;
 }
-.chat-close:hover { background: rgba(15, 46, 66, .12); }
+.chat-close:hover { background: rgba(250, 246, 234, .18); }
 
 .chat-log {
   /* min-height:0 is load-bearing. A flex child will not shrink below its own
@@ -663,6 +707,12 @@ a { color: var(--brand-dark); }
   flex: 1; min-height: 0; overflow-y: auto;
   padding: 1rem; display: grid; gap: .85rem;
   background: var(--paper);
+  /* Faint bubbles lifted off the badge, so the log looks like the brand and
+     not like a plain panel. Two circles, no image request. */
+  background-image:
+    radial-gradient(circle at 18% 22%, rgba(124, 198, 184, .16) 0 14px, transparent 15px),
+    radial-gradient(circle at 82% 68%, rgba(226, 106, 74, .08) 0 20px, transparent 21px);
+  background-attachment: local;
 }
 .chat-msg {
   display: flex; gap: .5rem; align-items: flex-end;
@@ -674,7 +724,11 @@ a { color: var(--brand-dark); }
   from { opacity: 0; transform: translateY(.6rem); }
   to   { opacity: 1; transform: translateY(0); }
 }
-.chat-msg__mascot { flex: none; align-self: flex-start; }
+.chat-msg__mascot {
+  flex: none; align-self: flex-start;
+  background: var(--white); border-radius: var(--radius-pill);
+  box-shadow: inset 0 0 0 1px var(--line);
+}
 .chat-bubble {
   max-width: 15rem; padding: .65rem .9rem;
   border-radius: var(--radius-surface);
@@ -685,16 +739,16 @@ a { color: var(--brand-dark); }
   border-bottom-left-radius: 4px;
 }
 .chat-msg--you .chat-bubble {
-  background: var(--brand); color: var(--ink);
+  background: var(--navy); color: var(--paper);
   border-bottom-right-radius: 4px;
 }
-.chat-bubble a { color: var(--brand-dark); font-weight: 700; }
+.chat-bubble a { color: var(--navy); font-weight: 700; }
 
 /* Three dots while an answer is on its way. */
 .chat-typing { display: inline-flex; gap: .25rem; padding: .15rem 0; }
 .chat-typing i {
   width: .45rem; height: .45rem; border-radius: 50%;
-  background: var(--brand-dark); opacity: .4;
+  background: var(--navy); opacity: .4;
   animation: chat-bounce 1.1s infinite;
 }
 .chat-typing i:nth-child(2) { animation-delay: .15s; }
@@ -712,14 +766,14 @@ a { color: var(--brand-dark); }
   font-family: var(--font-body); font-size: 1rem; color: var(--ink);
   background: var(--white);
 }
-.chat-input:focus { border-color: var(--brand); outline: none; }
+.chat-input:focus { border-color: var(--navy); outline: none; }
 .chat-send {
   flex: none; padding: .7rem 1.1rem;
-  background: var(--brand); color: var(--ink);
-  border: 2px solid var(--brand); border-radius: var(--radius-input);
+  background: var(--navy); color: var(--paper);
+  border: 2px solid var(--navy); border-radius: var(--radius-input);
   font-family: var(--font-body); font-size: 1rem; font-weight: 700; cursor: pointer;
 }
-.chat-send:hover { background: var(--brand-deep); border-color: var(--brand-deep); }
+.chat-send:hover { background: var(--navy-deep); border-color: var(--navy-deep); }
 
 /* On a narrow screen the panel takes the full width and the launcher drops
    its label, so it never covers the page content it is sitting on. */
@@ -740,22 +794,21 @@ a { color: var(--brand-dark); }
 /* ==========================================================================
    Footer
    ========================================================================== */
-/* Sky fill, so every rule in here is dark ink on light blue. The old white
-   footer text would only reach 2.1:1 on this background. */
-.footer { background: var(--brand); color: var(--ink); padding-block: clamp(2.75rem, 5vw, 4rem); }
-.footer h2, .footer h3 { color: var(--ink); }
-.footer a { color: var(--ink); }
+/* Navy fill: every rule in here is cream on navy, 10.4:1. The footer is also
+   where the round badge goes, because the badge is drawn on this exact navy
+   and so has no visible edge against it. */
+.footer { background: var(--navy); color: var(--paper); padding-block: clamp(2.75rem, 5vw, 4rem); }
+.footer h2, .footer h3 { color: var(--paper); }
+.footer a { color: var(--paper); text-decoration-color: var(--teal); }
 .footer__grid { display: grid; gap: 2.25rem; grid-template-columns: 1.2fr 1fr 1fr; }
-.footer__brand .brand__badge { border-color: rgba(15,46,66,.45); background: transparent; }
-.footer__brand .brand__name { color: var(--ink); }
-.footer__brand .brand__tag { color: var(--ink); border-top-color: rgba(15,46,66,.3); }
+.footer__brand .brand__badge { width: 10.5rem; border-radius: var(--radius-surface); }
 .footer h3 { font-size: 1.05rem; margin-bottom: .8em; }
 .footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: .6rem; }
-.footer p { color: var(--ink); }
+.footer p { color: var(--paper); }
 .footer__bottom {
   margin-top: 2.5rem; padding-top: 1.4rem;
-  border-top: 1px solid rgba(15,46,66,.25);
-  font-size: .9rem; color: var(--ink);
+  border-top: 1px solid rgba(250, 246, 234, .28);
+  font-size: .9rem; color: var(--paper);
   display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; justify-content: space-between;
 }
 
@@ -815,12 +868,10 @@ a { color: var(--brand-dark); }
     min-height: 2.5rem;                     /* keeps a thumb-sized target */
     display: flex; align-items: center;
   }
-  .nav__list a[aria-current="page"] { box-shadow: inset 0 -2px 0 var(--brand-dark); }
+  .nav__list a[aria-current="page"] { box-shadow: inset 0 -2px 0 var(--navy); }
 
   /* The wordmark sets the height of the bar, so it shrinks with it. */
-  .brand__badge { padding: .22rem 1rem .25rem; }
-  .brand__name { font-size: 1.05rem; letter-spacing: .08em; }
-  .brand__tag { font-size: .44rem; letter-spacing: .16em; margin-top: .15rem; padding-top: .15rem; }
+  .brand__mark { height: 1.85rem; }
 
   .utility__inner { justify-content: center; text-align: center; }
 
@@ -834,7 +885,9 @@ a { color: var(--brand-dark); }
   .hero__inner { padding-block: 0 var(--section-y); }
   .hero__card { max-width: none; margin-top: -3rem; }
 
-  .banner__scrim { background: rgba(10, 95, 138, .9); }
+  /* The photo is behind the text at this width rather than beside it, so the
+     scrim goes flat instead of fading off to the right. */
+  .banner__scrim { background: rgba(15, 63, 89, .92); }
 
   .tiles { grid-template-columns: 1fr; }
   .gallery { grid-template-columns: 1fr; }
@@ -856,7 +909,7 @@ a { color: var(--brand-dark); }
   .nav__inner { padding-inline: .35rem; gap: .1rem .5rem; }
   .nav__list { gap: .5rem; }
   .nav__list a { font-size: .78rem; padding: .5rem .3rem; }
-  .brand__name { font-size: .98rem; }
+  .brand__mark { height: 1.7rem; }
 }
 
 @media (max-width: 30rem) {

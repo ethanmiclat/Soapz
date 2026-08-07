@@ -1,4 +1,7 @@
-/* Ask Sudsy — the mascot chat widget.
+/* Ask Soapzy — the mascot chat widget.
+
+   Soapzy is the detergent-bottle character from the brand artwork; his
+   portrait is assets/img/mascot-soapzy-avatar.png.
 
    The whole widget is built here rather than repeated as markup in four HTML
    files, so there is one copy to maintain. It needs JavaScript to work at all,
@@ -18,12 +21,15 @@
    keyword can quietly steal questions from a topic three screens away, and
    that test is the only thing that notices.
 
-   See askSudsy() at the bottom for the single place to swap in a real model. */
+   See askSoapzy() at the bottom for the single place to swap in a real model. */
 (function () {
   'use strict';
 
-  var MASCOT = 'assets/img/mascot-placeholder.svg';
-  var NAME = 'Sudsy';
+  /* The avatar is the official mascot artwork cropped to head and thumb, so
+     the face still reads at the 30px the message bubbles use. The full figure
+     is in assets/img/mascot-soapzy.png if a bigger one is ever wanted. */
+  var MASCOT = 'assets/img/mascot-soapzy-avatar.png';
+  var NAME = 'Soapzy';
   var PHONE = '(555) 019-2847';
 
   /* Each entry is one topic.
@@ -50,13 +56,13 @@
       keys: ['hour', 'hours', 'open', 'close', 'closing', 'latest', 'schedule', 'shut', 'what time', 'before you shut', 'open late', 'open early', 'how early', 'how late', 'still open', 'too late', 'too late to come', 'open right now', 'open now', 'open today', 'open tomorrow', 'open tonight', 'sunday', 'saturday', 'monday', 'weekend', 'weekends only', 'during the week', 'weekday', 'overnight hours', 'twenty four hours', '24 hours', 'all night', 'last wash', 'last load'],
       context: ['time', 'today', 'tonight', 'tomorrow', 'morning', 'evening', 'night', 'am', 'pm', 'until', 'till'],
       avoid: ['comforter', 'stain', 'order', 'ticket', 'christmas', 'thanksgiving', 'holiday', 'easter', 'door', 'locked', 'stuck'],
-      text: 'We are open every day from 6:00am to 10:00pm. The last wash goes in at 9:00pm.'
+      text: 'We are open every day from 7:00am to 9:00pm. The last wash goes in at 8:00pm.'
     },
     {
       id: 'holidays',
       keys: ['holiday', 'christmas', 'christmas eve', 'on christmas', 'thanksgiving', 'on thanksgiving', 'new year', 'new years eve', 'easter', 'fourth of july', 'july 4th', 'memorial day', 'labor day', 'closed today', 'open on holidays', 'open on christmas', 'open on thanksgiving', 'open on new year', 'bank holiday'],
       context: ['open', 'close', 'closed', 'shut', 'hour', 'day'],
-      text: 'We are open every day of the year, 6:00am to 10:00pm, including holidays.'
+      text: 'We are open every day of the year, 7:00am to 9:00pm, including holidays.'
     },
     {
       id: 'weather-closure',
@@ -450,7 +456,7 @@
       id: 'trip-time',
       keys: ['whole trip', 'the whole thing', 'start to finish', 'how much time should i', 'how long will i be there', 'how long does the whole', 'time should i budget', 'budget for', 'set aside', 'plan for', 'how long am i there for', 'in and out'],
       context: ['time', 'long', 'wash', 'dry', 'wait', 'there'],
-      text: 'Plan on about an hour and a half from walking in to walking out: half an hour to wash, another thirty to thirty five minutes to dry, and a few minutes at the folding table. Come before 10:00am or after 8:00pm and you will not wait for a machine.'
+      text: 'Plan on about an hour and a half from walking in to walking out: half an hour to wash, another thirty to thirty five minutes to dry, and a few minutes at the folding table. Come before 10:00am or after 7:00pm and you will not wait for a machine.'
     },
     {
       id: 'cycle-done',
@@ -481,7 +487,7 @@
       id: 'busy',
       keys: ['busy', 'busiest', 'least busy', 'crowded', 'packed', 'quiet', 'quietest', 'wait time', 'rush hour', 'how long is the line', 'how long is the wait', 'the wait', 'wait for a machine', 'is there a queue', 'best time', 'best time to come', 'when should i come', 'avoid the crowd'],
       context: ['time', 'come', 'day', 'morning', 'evening', 'wait', 'saturday', 'sunday', 'weekend'],
-      text: 'Mornings before 10:00am and evenings after 8:00pm tend to be the quietest. Call ahead and we can tell you how many machines are free right now.'
+      text: 'Mornings before 10:00am and evenings after 7:00pm tend to be the quietest. Call ahead and we can tell you how many machines are free right now.'
     },
     {
       id: 'broken-machine',
@@ -1014,7 +1020,7 @@
       text: 'Call <a href="tel:+15550192847">' + PHONE + '</a> and we will tell you who is on that day. The attendants are used to helping people through it whatever the language.'
     },
 
-    /* ---------- Talking to Sudsy ---------- */
+    /* ---------- Talking to Soapzy ---------- */
     {
       id: 'memory',
       keys: ['remember me', 'do you remember', 'remember what i said', 'remember what i asked', 'remember my last', 'remember our', 'what did i just ask', 'what did i ask', 'earlier i asked', 'forget what i said', 'you forgot', 'conversation history', 'record of our chat', 'keep a record', 'save my chat', 'store my questions', 'privacy', 'keep a record of me'],
@@ -1025,7 +1031,7 @@
       id: 'capabilities',
       keys: ['what can you do', 'what do you know', 'what can i ask', 'can i ask you', 'things can i ask', 'sort of things', 'are you a bot', 'are you a robot', 'are you real', 'are you a real person', 'are you a person', 'are you human', 'are you ai', 'an ai', 'ai', 'a bot', 'talking to a machine', 'can you answer', 'what can you help', 'you help with', 'what questions', 'what you do', 'who are you', 'your name', 'what are you', 'who made you', 'who wrote you', 'who built you', 'who created you'],
       context: ['you', 'ask', 'help', 'bot', 'know'],
-      text: 'I am Sudsy, the mascot, answering questions about Soapz from a fixed list. Ask me about hours, prices, parking, wash, dry and fold, or general laundry things like stains, care labels and fabric care. Anything I cannot answer, the attendant can, on <a href="tel:+15550192847">' + PHONE + '</a>.'
+      text: 'I am Soapzy, the mascot, answering questions about Soapz from a fixed list. Ask me about hours, prices, parking, wash, dry and fold, or general laundry things like stains, care labels and fabric care. Anything I cannot answer, the attendant can, on <a href="tel:+15550192847">' + PHONE + '</a>.'
     },
     {
       id: 'small-talk',
@@ -1044,8 +1050,11 @@
     {
       id: 'greeting',
       weak: true,
-      keys: ['hello', 'hi', 'hey', 'howdy', 'sudsy', 'morning', 'good morning', 'good afternoon', 'good evening', 'yo', 'hiya'],
-      context: ['sudsy'],
+      /* soapzee and soapzie are here because the fuzzy check only forgives a
+         single edit, and both are two away from "soapzy". A name heard rather
+         than read gets spelled the way it sounds. */
+      keys: ['hello', 'hi', 'hey', 'howdy', 'soapzy', 'soapzee', 'soapzie', 'morning', 'good morning', 'good afternoon', 'good evening', 'yo', 'hiya'],
+      context: ['soapzy', 'soapzee', 'soapzie'],
       text: 'Hello. Ask me anything about the laundromat, or about laundry in general: hours, prices, parking, stain removal, care labels, or how wash, dry and fold works.'
     },
     {
@@ -1898,7 +1907,7 @@
     var pending = say('bot', '<span class="chat-typing"><i></i><i></i><i></i></span>');
     var previous = lastAnswered;
 
-    askSudsy(text, previous).then(function (answer) {
+    askSoapzy(text, previous).then(function (answer) {
       pending.querySelector('.chat-bubble').innerHTML = answer;
       log.scrollTop = log.scrollHeight;
       if (answer !== FALLBACK) lastAnswered = text;
@@ -1917,8 +1926,8 @@
      model claude-opus-5) with a system prompt describing Soapz and the mascot's
      voice, and returns the text. From here that is simply:
 
-         function askSudsy(question, previous) {
-           return fetch('/api/ask-sudsy', {
+         function askSoapzy(question, previous) {
+           return fetch('/api/ask-soapzy', {
              method: 'POST',
              headers: { 'Content-Type': 'application/json' },
              body: JSON.stringify({ question: question, previous: previous })
@@ -1930,7 +1939,7 @@
 
      Keep the escapeHTML on anything a model writes — the answers below are
      trusted because we wrote them, a model's are not. */
-  function askSudsy(question, previous) {
+  function askSoapzy(question, previous) {
     return new Promise(function (resolve) {
       setTimeout(function () { resolve(bestAnswer(question, previous)); }, 450);
     });

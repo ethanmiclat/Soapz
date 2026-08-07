@@ -5,7 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Soapz Laundry Co. | Self-Service and Wash, Dry and Fold Laundry</title>
 <meta name="description" content="Soapz is a clean, bright laundromat with an attendant on site every day. Use our machines yourself, or drop your laundry off and we will wash, dry and fold it for you.">
-<meta name="theme-color" content="#56bcef">
+<meta name="theme-color" content="#0f3f59">
+<link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="assets/img/icon-180.png">
 <link rel="preload" href="assets/fonts/publicsans-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/outfit-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/css/styles.css">
@@ -15,8 +17,8 @@
 <meta property="og:type" content="website">
 <meta property="og:image" content="assets/img/hero-laundromat.jpg">
 
-<!-- PLACEHOLDER DATA: replace name, phone, address and hours with the real
-     business details before going live. See README.md.
+<!-- PLACEHOLDER DATA: replace name, phone and address with the real business
+     details before going live. The hours here are real. See README.md.
      This block matters more than usual here, because this entry page carries
      less text than a normal home page for search engines to read. -->
 <script type="application/ld+json">
@@ -37,8 +39,8 @@
   "openingHoursSpecification": [{
     "@type": "OpeningHoursSpecification",
     "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
-    "opens": "06:00",
-    "closes": "22:00"
+    "opens": "07:00",
+    "closes": "21:00"
   }]
 }
 </script>
@@ -58,12 +60,13 @@
   <!-- The buttons read as bare Yes and No on purpose. aria-label carries the
        meaning for screen readers without putting more words on the page. -->
   <div class="entry__card">
-    <!-- Not aria-hidden like the one in the home hero: this page has no nav
-         bar, so this wordmark is the only place the business is named. -->
-    <span class="brand__badge entry__mark">
-      <span class="brand__name">SOAPZ</span>
-      <span class="brand__tag">Laundry Co.</span>
-    </span>
+    <!-- The badge rather than the wordmark, and with real alt text unlike the
+         decorative copy in the home hero: this page has no nav bar, so this
+         mark is the only place the business is named. This is the vintage
+         shirt version of the badge (transparent background, city line under
+         the bubbles), not the navy-field one home.html and the footer use. -->
+    <img class="brand__badge entry__mark" src="assets/img/logo-shirt.png" width="1610" height="1796"
+         alt="Soapz Laundry Co., Springfield, MO" fetchpriority="high" decoding="async">
 
     <h1 id="question">Do you like doing laundry?</h1>
 
