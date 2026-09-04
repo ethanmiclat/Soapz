@@ -3,7 +3,19 @@
 A four-page static site. No build step, no framework, no npm install. Open
 `index.html` in a browser, or upload the whole folder to any host.
 
+> ## ⚠️ The site is not published. Only the opening-soon screen is.
+>
+> Soapz has not opened yet, so the public site is a single screen that says so:
+> `docs/index.html`. **GitHub Pages builds from the `/docs` folder**, and
+> `/docs` holds nothing but that screen, its 404 twin, two fonts and the badge.
+>
+> The four pages below still live in this repo and still work locally. They are
+> simply never uploaded, so there is no URL on the live host to reach them at
+> and nothing to bypass. See [Opening soon](#opening-soon) for how that is
+> locked and how to undo it on opening day.
+
 ```
+docs/                 THE ONLY PUBLISHED FOLDER — the opening-soon screen
 index.html            Entry page: "Do you like doing laundry?" Yes / No
 home.html             Home
 self-service.html     Self-service wash
@@ -45,6 +57,68 @@ in a structured-data block in its `<head>`, and the address, hours and phone
 number appear as visible text near the answers. If you ever notice you are not
 showing up in local searches, the fix is to swap the two files so `home.html`
 becomes `index.html`.
+
+## Opening soon
+
+The live site is one screen: `docs/index.html`. It is self-contained on
+purpose — its own CSS in a `<style>` block, its own copies of the two fonts
+and the vintage shirt badge, and **no JavaScript at all**. It shares nothing
+with the real site but the brand colours and type, so editing one cannot
+disturb the other.
+
+### Why it cannot be bypassed
+
+The four real pages are not hidden on the live site. They are **not there.**
+
+GitHub Pages is set to build from the `/docs` folder, which makes `docs/` the
+whole web root. `home.html`, `self-service.html`, `wash-fold.html` and
+`locations.html` sit outside it, so Pages never uploads them. There is no
+address to type, no link to un-hide, no file to guess.
+
+That distinction is the entire point, because the usual ways of doing this do
+not hold up on a static site:
+
+| Approach | How it is beaten |
+|---|---|
+| A `<script>` that redirects to the splash | Turn JavaScript off, or read the page before the script runs |
+| An overlay `<div>` covering the page | Delete the div in dev tools, or read view-source |
+| A password prompt in JavaScript | The password is in the file everyone downloads |
+| Renaming the pages | The new names are in the repo, which is public |
+
+All four leave the real pages sitting on the web host, one request away. Not
+publishing them leaves nothing to find. The only place they exist is this
+repository and your own computer.
+
+**Do not add a link from `docs/index.html` to any of the four pages,** and do
+not move a page into `docs/`. Either one puts it back on the live host.
+
+### What the screen does and does not say
+
+The hours on it (7:00am–9:00pm, every day) are real. **Nothing else that could
+be wrong is on it** — no phone number, no street address, no opening date, no
+prices — because those are all still placeholders (see the next section). Do
+not add contact details to it until they are the real ones.
+
+`docs/404.html` is the same screen with a softer headline. Pages serves it for
+any URL that does not exist, which is now every URL but `/`. It is there for
+the old `home.html` and `locations.html` links that search engines still hold
+from when the full site was published: those now land on the opening-soon
+screen instead of a GitHub 404 page.
+
+### Going live
+
+On opening day, in this order:
+
+1. Work through **Replace before going live** below, and the **app and Comfort
+   Club** section further down. Nothing goes public while a `PLACEHOLDER`
+   remains.
+2. In GitHub → **Settings → Pages**, change the source folder from `/docs`
+   back to `/ (root)`. That one setting publishes the four pages and is the
+   only step that does. Everything before it is reversible.
+3. Delete `docs/`, or leave it — once the source is root, `docs/index.html` is
+   just an unused file. Deleting it is tidier and removes the stale screen.
+
+To take it back down, set the source folder back to `/docs`.
 
 ## Replace before going live
 

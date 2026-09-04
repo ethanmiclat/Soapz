@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Soapz Laundry Co. | Opening soon in Springfield, MO</title>
+<meta name="robots" content="noindex">
+<meta name="description" content="Soapz Laundry Co. is opening soon in Springfield, MO. A clean, bright laundromat with an attendant on site every day: self-service machines, or drop it off for wash, dry and fold.">
+<meta name="theme-color" content="#0f3f59">
+<link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="assets/img/icon-180.png">
+<link rel="preload" href="assets/fonts/publicsans-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/outfit-var.woff2" as="font" type="font/woff2" crossorigin>
+<meta property="og:title" content="Soapz Laundry Co. — opening soon">
+<meta property="og:description" content="A clean, bright laundromat coming soon to Springfield, MO.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="assets/img/logo-shirt.png">
+
+<!-- ==========================================================================
+     OPENING SOON SCREEN (404)
+     --------------------------------------------------------------------------
+     This page is deliberately self-contained: its own CSS, its own copies of
+     the two fonts and the badge, no stylesheet from assets/css, no JavaScript
+     at all. It shares nothing with the real site but the brand.
+
+     It is also the ONLY page published. GitHub Pages is set to build from
+     this /docs folder, so home.html, self-service.html, wash-fold.html and
+     locations.html are never uploaded to the web host and have no URL to be
+     reached at. That is the lock. A JS redirect or a CSS overlay would not
+     be one: on a static site either is undone by view-source, by turning
+     JavaScript off, or by typing the file name. Nothing here can be clicked
+     or edited to get past it, because there is nothing on the other side.
+
+     This is the copy GitHub Pages serves for any URL that does not exist,
+     which is now every URL but "/". Search engines still hold the old
+     home.html, self-service.html, wash-fold.html and locations.html links
+     from when the full site was published; this is what those land on, so
+     an old link shows the opening-soon screen instead of a GitHub 404 page.
+     It is byte-for-byte index.html apart from this note, the noindex tag
+     (404s should not be indexed) and the softer opening line. Asset paths
+     are relative on purpose, so they keep working under a custom domain;
+     they resolve for any one-level URL, which is every link the old site
+     ever had.
+
+     To go live, see the "Going live" section of README.md.
+
+     NO PLACEHOLDERS ON THIS PAGE. The site's phone number and street address
+     are invented (see README), so neither appears here. The hours are the one
+     real value and are safe to show. Do not add contact details to this page
+     until they are the real ones.
+     ========================================================================== -->
+
+<style>
+  /* ---------- Fonts (self-hosted, no external requests) ---------- */
+  @font-face {
+    font-family: "Outfit";
+    src: url("assets/fonts/outfit-var.woff2") format("woff2");
+    font-weight: 400 700; font-style: normal; font-display: swap;
+  }
+  @font-face {
+    font-family: "Public Sans";
+    src: url("assets/fonts/publicsans-var.woff2") format("woff2");
+    font-weight: 400 700; font-style: normal; font-display: swap;
+  }
+
+  /* ---------- Tokens. The same values as the site, so the badge artwork
+     drops onto this navy with no visible edge. ---------- */
+  :root {
+    color-scheme: dark;          /* navy field: keeps scrollbars in key */
+
+    --navy: #0f3f59;
+    --navy-deep: #0a2e41;
+    --paper: #faf6ea;            /* the badge cream */
+    --teal: #7cc6b8;
+    --coral: #e26a4a;            /* lines only, never carries text */
+
+    --font-display: "Outfit", "Trebuchet MS", sans-serif;
+    --font-body: "Public Sans", "Helvetica Neue", Arial, sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html {
+    font-size: 112.5%;           /* 18px base, same as the site */
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100svh;
+    display: grid;
+    place-items: center;
+    padding: clamp(2rem, 6vw, 4rem) 1.25rem;
+
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--paper);
+    -webkit-font-smoothing: antialiased;
+
+    /* The drum: one soft teal glow behind the badge over a deep navy field.
+       Two stops only, so it reads as light rather than as a gradient. */
+    background:
+      radial-gradient(120% 90% at 50% 18%, #16506f 0%, var(--navy) 42%, var(--navy-deep) 100%);
+  }
+
+  img { max-width: 100%; height: auto; display: block; }
+
+  .screen {
+    width: 100%;
+    max-width: 38rem;
+    text-align: center;
+  }
+
+  /* ---------- The badge. The vintage shirt version: transparent field, so
+     the navy behind it becomes the badge's own background. ---------- */
+  .screen__mark {
+    width: clamp(11rem, 30vw, 15.5rem);
+    margin: 0 auto clamp(1.75rem, 4vw, 2.5rem);
+    filter: drop-shadow(0 18px 40px rgba(5, 22, 32, .45));
+  }
+
+  /* ---------- Eyebrow. Coral draws the two rules either side of it and
+     nothing else, which is the site's colour rule. ---------- */
+  .eyebrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .9rem;
+
+    margin: 0 0 1.1rem;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: .82rem;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--teal);
+  }
+  .eyebrow::before,
+  .eyebrow::after {
+    content: "";
+    height: 2px;
+    width: clamp(1.5rem, 8vw, 3.25rem);
+    background: var(--coral);
+    border-radius: 999px;
+    opacity: .9;
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(2.15rem, 6.5vw, 3.25rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+    margin: 0 0 .55em;
+    color: var(--paper);
+  }
+
+  .lede {
+    margin: 0 auto;
+    max-width: 30rem;
+    font-size: clamp(1.02rem, 2.2vw, 1.12rem);
+    color: #d9e6ec;              /* cream stepped back, 9.4:1 on navy */
+    text-wrap: pretty;
+  }
+
+  /* ---------- The two services, stated as fact, not as links. There is
+     nowhere for them to go and that is the point. ---------- */
+  .services {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: .6rem;
+    margin: clamp(1.75rem, 4vw, 2.25rem) 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  .services li {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: .95rem;
+    padding: .5rem 1.1rem;
+    border: 1px solid rgba(124, 198, 184, .38);
+    border-radius: 999px;
+    background: rgba(124, 198, 184, .10);
+    color: var(--paper);
+  }
+
+  /* ---------- Hours. The one real number on the page. ---------- */
+  .hours {
+    margin: clamp(2rem, 5vw, 2.75rem) 0 0;
+    padding-top: clamp(1.5rem, 4vw, 2rem);
+    border-top: 1px solid rgba(250, 246, 234, .16);
+  }
+  .hours__label {
+    display: block;
+    font-size: .8rem;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: .3rem;
+  }
+  .hours__value {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(1.1rem, 3vw, 1.35rem);
+    color: var(--paper);
+  }
+  .hours__value span { white-space: nowrap; }
+
+  .closing {
+    margin: 1.5rem 0 0;
+    font-size: .95rem;
+    color: #b7cbd6;              /* 6.6:1 on navy */
+  }
+
+  /* The site's motion rule: nothing moves that the user did not touch. This
+     page has no motion at all, so there is nothing to switch off here. */
+</style>
+</head>
+<body>
+
+<main class="screen">
+
+  <img class="screen__mark" src="assets/img/logo-shirt.png" width="1610" height="1796"
+       alt="Soapz Laundry Co., Springfield, MO" fetchpriority="high" decoding="async">
+
+  <p class="eyebrow">Opening soon</p>
+
+  <h1>That page is not here yet.</h1>
+
+  <p class="lede">
+    Soapz has not opened yet, so there is not much of a website either. It
+    will be a clean, bright place to do laundry, with an attendant on site
+    every day: use our machines yourself, or drop your laundry off and we
+    will wash, dry and fold it for you.
+  </p>
+
+  <ul class="services">
+    <li>Self-service</li>
+    <li>Wash, dry &amp; fold</li>
+  </ul>
+
+  <p class="hours">
+    <span class="hours__label">Our hours once we open</span>
+    <span class="hours__value"><span>7:00am &ndash; 9:00pm</span>, <span>every day</span></span>
+  </p>
+
+  <p class="closing">Check back here for our opening date.</p>
+
+</main>
+
+</body>
+</html>
