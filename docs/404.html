@@ -23,19 +23,20 @@
      the two fonts and the badge, no stylesheet from assets/css, no JavaScript
      at all. It shares nothing with the real site but the brand.
 
-     It is also the ONLY page published. GitHub Pages is set to build from
-     this /docs folder, so home.html, self-service.html, wash-fold.html and
-     locations.html are never uploaded to the web host and have no URL to be
-     reached at. That is the lock. A JS redirect or a CSS overlay would not
+     It is also the ONLY page published. The host's build output directory is
+     set to this /docs folder, so home.html, self-service.html, wash-fold.html
+     and locations.html are never uploaded to the web host and have no URL to
+     be reached at. That is the lock. A JS redirect or a CSS overlay would not
      be one: on a static site either is undone by view-source, by turning
      JavaScript off, or by typing the file name. Nothing here can be clicked
      or edited to get past it, because there is nothing on the other side.
 
-     This is the copy GitHub Pages serves for any URL that does not exist,
+     This is the copy the host serves for any URL that does not exist,
      which is now every URL but "/". Search engines still hold the old
      home.html, self-service.html, wash-fold.html and locations.html links
      from when the full site was published; this is what those land on, so
-     an old link shows the opening-soon screen instead of a GitHub 404 page.
+     an old link shows the opening-soon screen instead of the host's own
+     404 page.
      It is byte-for-byte index.html apart from this note, the noindex tag
      (404s should not be indexed) and the softer opening line. Asset paths
      are relative on purpose, so they keep working under a custom domain;
