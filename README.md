@@ -6,8 +6,9 @@ A four-page static site. No build step, no framework, no npm install. Open
 > ## ⚠️ The site is not published. Only the opening-soon screen is.
 >
 > Soapz has not opened yet, so the public site is a single screen that says so:
-> `docs/index.html`. The host's **build output directory is `docs`**, and
-> `docs/` holds nothing but that screen, its 404 twin, two fonts and the badge.
+> `docs/index.html`. The deployed folder is **`docs`**, set in `wrangler.jsonc`,
+> and `docs/` holds nothing but that screen, its 404 twin, two fonts and the
+> badge.
 >
 > The four pages below still live in this repo and still work locally. They are
 > simply never uploaded, so there is no URL on the live host to reach them at
@@ -70,11 +71,16 @@ disturb the other.
 
 The four real pages are not hidden on the live site. They are **not there.**
 
-The site is served by **Cloudflare Pages**, whose *build output directory* is
-set to `docs`. That makes `docs/` the whole web root. `home.html`,
-`self-service.html`, `wash-fold.html` and `locations.html` sit outside it, so
-they are never uploaded. There is no address to type, no link to un-hide, no
-file to guess.
+The site is a **Cloudflare Worker serving static assets** (project `soapz`,
+built from this repo by Workers Builds). `wrangler.jsonc` sets
+`assets.directory` to `./docs`, and that is the only folder uploaded.
+`home.html`, `self-service.html`, `wash-fold.html` and `locations.html` sit
+outside it, so they never reach the web host. There is no address to type, no
+link to un-hide, no file to guess.
+
+Keeping that setting in `wrangler.jsonc` rather than in the Cloudflare
+dashboard is deliberate: it is the one line standing between "one screen" and
+"the whole unopened business is live", so it should be visible in a diff.
 
 That distinction is the entire point, because the usual ways of doing this do
 not hold up on a static site:
@@ -93,26 +99,24 @@ repository and your own computer.
 **Do not add a link from `docs/index.html` to any of the four pages,** and do
 not move a page into `docs/`. Either one puts it back on the live host.
 
-### The one real hole: old Cloudflare deployments
+### The one real hole: older versions
 
-Changing the output directory only governs **new** deployments. Cloudflare
-Pages keeps every deployment it has ever built, each at its own permanent
-URL of the form `<commit-hash>.<project>.pages.dev`. Those older builds were
-made when the output directory was the repo root, **so they still contain and
-still serve all four pages.** The addresses are not secret: they appear in the
-project's Deployments tab, and in the commit checks on GitHub.
+The setting only governs **new** builds. Cloudflare keeps the Worker versions
+it has already built, and every version from before this change was uploaded
+with the repo root as its asset folder, **so those versions still contain all
+four pages.** A preview URL or a rollback puts them straight back on the web.
 
-Setting the output directory does not retract them. Either one of these does:
+Changing the folder does not retract them. In the Cloudflare dashboard, under
+the `soapz` Worker:
 
-- **Delete the old deployments.** Cloudflare dashboard → the project →
-  *Deployments* → each build from before this change → *Manage deployment* →
-  *Delete*. This is the thorough fix, and the one to use here.
-- **Or put Cloudflare Access in front of preview deployments** (project →
-  *Settings* → *General* → *Access policy*), which walls off every URL except
-  the production domain.
+- **Settings → Domains & Routes** — confirm nothing but the intended domain is
+  routed here, and remove any preview URL you do not need.
+- **Deployments / Versions** — the older versions are the ones to be careful
+  with. Do not roll back to any version built before 2026-09-07; each one
+  serves the full site.
 
-Do this once. Any deployment made from now on contains only `docs/`, so there
-is nothing in it to protect.
+Every build from now on contains only `docs/`, so there is nothing in it to
+protect.
 
 ### What the screen does and does not say
 
@@ -134,15 +138,13 @@ On opening day, in this order:
 1. Work through **Replace before going live** below, and the **app and Comfort
    Club** section further down. Nothing goes public while a `PLACEHOLDER`
    remains.
-2. Cloudflare dashboard → the project → *Settings* → *Builds & deployments* →
-   *Build configurations* → change **build output directory** from `docs` back
-   to `/`, then redeploy. That one setting publishes the four pages and is the
-   only step that does. Everything before it is reversible.
-3. Delete `docs/`, or leave it — once the output directory is the root,
-   `docs/index.html` is just an unused file that would be reachable at
-   `/docs/`. Deleting it is tidier and removes the stale screen.
+2. In `wrangler.jsonc`, change `assets.directory` from `"./docs"` to `"./"`,
+   and push. That one line publishes the four pages and is the only step that
+   does. Everything before it is reversible.
+3. Delete `docs/`. Once the asset folder is the root, the opening-soon screen
+   would otherwise still be served at `/docs/`.
 
-To take it back down, set the build output directory to `docs` again.
+To take it back down, set `assets.directory` back to `"./docs"` and push.
 
 ## Replace before going live
 

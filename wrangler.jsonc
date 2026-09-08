@@ -1,0 +1,36 @@
+{
+  // ==========================================================================
+  // Cloudflare Workers deployment config.
+  //
+  // This file exists to put ONE setting under version control: which folder
+  // gets uploaded to the web. While Soapz is not open, that folder is `docs`,
+  // which holds nothing but the opening-soon screen.
+  //
+  // Before this file, that setting lived only in the Cloudflare dashboard,
+  // where nothing in the repo recorded it, no review could catch a change to
+  // it, and forgetting it would publish the whole site by accident. It is the
+  // single thing standing between "one screen" and "the entire unopened
+  // business is live", so it belongs next to the code it governs.
+  //
+  // See the "Opening soon" section of README.md. On opening day this becomes
+  // "./" and `docs` is deleted.
+  // ==========================================================================
+
+  "name": "soapz",
+  "compatibility_date": "2026-09-07",
+
+  "assets": {
+    // THE LOCK. Only what is inside this folder is uploaded. home.html,
+    // self-service.html, wash-fold.html and locations.html live outside it,
+    // so they are never on the web host and there is no URL to reach them
+    // at. Do not point this at "./" until the site is ready to open, and do
+    // not move a real page into docs/.
+    "directory": "./docs",
+
+    // Serve docs/404.html for anything that does not exist, which is now
+    // every path but "/". Without this, Workers returns a bare 404 and the
+    // old home.html and locations.html links that search engines still hold
+    // would land on nothing. The default is "none", so this has to be said.
+    "not_found_handling": "404-page"
+  }
+}
