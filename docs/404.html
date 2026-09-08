@@ -31,17 +31,18 @@
      JavaScript off, or by typing the file name. Nothing here can be clicked
      or edited to get past it, because there is nothing on the other side.
 
-     This is the copy the host serves for any URL that does not exist,
-     which is now every URL but "/". Search engines still hold the old
-     home.html, self-service.html, wash-fold.html and locations.html links
-     from when the full site was published; this is what those land on, so
-     an old link shows the opening-soon screen instead of the host's own
-     404 page.
+     This is the copy the host serves for any URL that does not exist, which
+     is now every URL but "/". Search engines still hold the old home.html,
+     self-service.html, wash-fold.html and locations.html links from when the
+     full site was published; this is what those land on, so an old link
+     shows the opening-soon screen instead of the host's own 404 page. It is
+     wired up by not_found_handling in wrangler.jsonc, which Workers needs
+     told explicitly.
+
      It is byte-for-byte index.html apart from this note, the noindex tag
-     (404s should not be indexed) and the softer opening line. Asset paths
-     are relative on purpose, so they keep working under a custom domain;
-     they resolve for any one-level URL, which is every link the old site
-     ever had.
+     (404s should not be indexed) and the headline. Asset paths are relative
+     on purpose, so they keep working under a custom domain; they resolve for
+     any one-level URL, which is every link the old site ever had.
 
      To go live, see the "Going live" section of README.md.
 
@@ -91,7 +92,7 @@
     min-height: 100svh;
     display: grid;
     place-items: center;
-    padding: clamp(2rem, 6vw, 4rem) 1.25rem;
+    padding: clamp(1.5rem, 4svh, 3rem) 1.25rem;
 
     font-family: var(--font-body);
     font-size: 1rem;
@@ -109,15 +110,20 @@
 
   .screen {
     width: 100%;
-    max-width: 38rem;
+    max-width: 33rem;
     text-align: center;
   }
 
   /* ---------- The badge. The vintage shirt version: transparent field, so
      the navy behind it becomes the badge's own background. ---------- */
   .screen__mark {
-    width: clamp(11rem, 30vw, 15.5rem);
-    margin: 0 auto clamp(1.75rem, 4vw, 2.5rem);
+    /* Sized against the viewport's HEIGHT as well as its width. The badge is
+       42% of this page's vertical space, so on a short laptop window it is
+       the difference between the whole screen fitting and the last line
+       being cut off. svh rather than vh so a phone's collapsing browser bar
+       cannot push it over. */
+    width: clamp(8.5rem, min(26vw, 26svh), 13.5rem);
+    margin: 0 auto clamp(1.25rem, 3.5svh, 2.25rem);
     filter: drop-shadow(0 18px 40px rgba(5, 22, 32, .45));
   }
 
@@ -129,7 +135,7 @@
     justify-content: center;
     gap: .9rem;
 
-    margin: 0 0 1.1rem;
+    margin: 0 0 clamp(.7rem, 2svh, 1.1rem);
     font-family: var(--font-display);
     font-weight: 700;
     font-size: .82rem;
@@ -150,20 +156,12 @@
   h1 {
     font-family: var(--font-display);
     font-weight: 700;
-    font-size: clamp(2.15rem, 6.5vw, 3.25rem);
+    font-size: clamp(1.9rem, min(6.5vw, 5.5svh), 3.05rem);
     line-height: 1.1;
     letter-spacing: -0.02em;
     text-wrap: balance;
-    margin: 0 0 .55em;
+    margin: 0;
     color: var(--paper);
-  }
-
-  .lede {
-    margin: 0 auto;
-    max-width: 30rem;
-    font-size: clamp(1.02rem, 2.2vw, 1.12rem);
-    color: #d9e6ec;              /* cream stepped back, 9.4:1 on navy */
-    text-wrap: pretty;
   }
 
   /* ---------- The two services, stated as fact, not as links. There is
@@ -173,7 +171,7 @@
     flex-wrap: wrap;
     justify-content: center;
     gap: .6rem;
-    margin: clamp(1.75rem, 4vw, 2.25rem) 0 0;
+    margin: clamp(1.4rem, 3.5svh, 2.1rem) 0 0;
     padding: 0;
     list-style: none;
   }
@@ -190,8 +188,8 @@
 
   /* ---------- Hours. The one real number on the page. ---------- */
   .hours {
-    margin: clamp(2rem, 5vw, 2.75rem) 0 0;
-    padding-top: clamp(1.5rem, 4vw, 2rem);
+    margin: clamp(1.5rem, 4svh, 2.4rem) 0 0;
+    padding-top: clamp(1.1rem, 3svh, 1.8rem);
     border-top: 1px solid rgba(250, 246, 234, .16);
   }
   .hours__label {
@@ -211,7 +209,7 @@
   .hours__value span { white-space: nowrap; }
 
   .closing {
-    margin: 1.5rem 0 0;
+    margin: clamp(1rem, 2.5svh, 1.5rem) 0 0;
     font-size: .95rem;
     color: #b7cbd6;              /* 6.6:1 on navy */
   }
@@ -230,13 +228,6 @@
   <p class="eyebrow">Opening soon</p>
 
   <h1>That page is not here yet.</h1>
-
-  <p class="lede">
-    Soapz has not opened yet, so there is not much of a website either. It
-    will be a clean, bright place to do laundry, with an attendant on site
-    every day: use our machines yourself, or drop your laundry off and we
-    will wash, dry and fold it for you.
-  </p>
 
   <ul class="services">
     <li>Self-service</li>
